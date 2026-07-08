@@ -110,7 +110,7 @@ html[dir="rtl"] .c-arrow svg{transform:scaleX(-1)}
 .scroller::-webkit-scrollbar{height:8px}
 .scroller::-webkit-scrollbar-thumb{background:var(--gold);border-radius:4px}
 .card{background:var(--ivory);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;min-width:220px;max-width:240px;scroll-snap-align:start;flex:0 0 auto;display:flex;flex-direction:column;transition:.2s}
-.card:hover{box-shadow:0 10px 26px rgba(13,58,45,.14);transform:translateY(-3px)}
+@media(hover:hover){.card:hover{box-shadow:0 10px 26px rgba(13,58,45,.14);transform:translateY(-3px)}}
 .grid .card{min-width:0;max-width:none}
 .card .ph{height:170px;background:var(--green2) center/cover no-repeat;position:relative}
 .card .fav{position:absolute;top:8px;inset-inline-end:8px;width:34px;height:34px;border-radius:50%;background:rgba(250,246,238,.92);display:grid;place-items:center;color:var(--green)}
@@ -132,7 +132,7 @@ html[dir="rtl"] .c-arrow svg{transform:scaleX(-1)}
 .cat-tile .tic{width:44px;height:44px;border-radius:50%;background:var(--green);color:var(--gold);display:grid;place-items:center}
 .cat-tile .tic svg{width:24px;height:24px}
 .cat-tile span{font-size:13px;text-align:center;color:var(--ink)}
-.cat-tile:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(28,53,45,.3);background:rgba(244,240,236,.7)}
+@media(hover:hover){.cat-tile:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(28,53,45,.3);background:rgba(244,240,236,.7)}}
 .cat-tile:hover .tic{background:var(--gold);color:var(--green)}
 
 /* ===== FAQ ===== */
@@ -214,7 +214,7 @@ footer a:hover{color:var(--gold2)}
 .card .add:disabled{background:#9aa39c;cursor:not-allowed;color:#e8e8e8}
 .wa-float{position:fixed;bottom:20px;inset-inline-start:20px;width:54px;height:54px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;z-index:80;box-shadow:0 8px 24px rgba(0,0,0,.3);transition:.2s}
 .wa-float svg{width:30px;height:30px}
-.wa-float:hover{transform:scale(1.08)}
+@media(hover:hover){.wa-float:hover{transform:scale(1.08)}}
 .wa-tip{position:absolute;bottom:110%;inset-inline-start:0;background:var(--green);color:var(--gold2);font-size:12px;padding:5px 10px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:.2s}
 .wa-float:hover .wa-tip{opacity:1}
 .flagrow{display:flex;gap:14px;flex-wrap:wrap}
@@ -279,7 +279,7 @@ footer a:hover{color:var(--gold2)}
 .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
 .tile{background:var(--ivory);border:1px solid var(--line);border-radius:var(--radius);padding:22px 10px;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:15px;font-weight:700;color:var(--green);transition:.2s}
 .tile .tico{font-size:30px}
-.tile:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(28,53,45,.18);background:var(--green);color:var(--gold2)}
+@media(hover:hover){.tile:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(28,53,45,.18);background:var(--green);color:var(--gold2)}}
 .apanel{display:none}
 .apanel.open{display:block}
 .apback{padding:7px 16px;font-size:13.5px}
@@ -313,12 +313,13 @@ footer a:hover{color:var(--gold2)}
 
 /* هيكل تحميل صور المنتجات */
 .card .ph{background-color:#e6e1d6;background-image:linear-gradient(100deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 70%);background-size:200% 100%;animation:shimmer 1.4s infinite}
+.card .ph[style]{animation:none;background-image:none}  /* مربع فيه صورة منتج: صورة ثابتة تماماً */
 @keyframes shimmer{to{background-position:-200% 0}}
 
 /* زر العودة للأعلى */
 #toTop{position:fixed;bottom:20px;inset-inline-end:20px;width:46px;height:46px;border-radius:50%;background:var(--green);color:var(--gold);display:grid;place-items:center;z-index:80;box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:.3s}
 #toTop.show{opacity:1;pointer-events:auto}
-#toTop:hover{transform:translateY(-3px)}
+@media(hover:hover){#toTop:hover{transform:translateY(-3px)}}
 
 /* سلة فارغة أجمل */
 .empty-cart{text-align:center;padding:24px 10px}
@@ -516,6 +517,7 @@ footer a:hover{color:var(--gold2)}
     <div class="sec-title"><span class="g8">✦</span><h2 id="adminTitle"></h2><span class="g8">✦</span></div>
     <div id="adminLogin">
       <div class="field"><label id="adminPassLbl"></label><input type="password" id="adminPass" class="num"></div>
+      <label class="chk" style="margin-bottom:10px"><input type="checkbox" id="rememberChk"> <span id="rememberLbl"></span></label><br>
       <button class="btn" id="adminEnter"></button>
       <div class="msg err" id="adminErr"></div>
     </div>
@@ -716,6 +718,11 @@ footer a:hover{color:var(--gold2)}
         <div class="field"><label id="lblNewPass2"></label><input type="password" id="newPass2" class="num"></div>
         <button class="btn" id="passSave" style="padding:9px 20px;font-size:14px"></button>
 
+        <h3 id="admPosTitle" style="color:var(--green);margin:24px 0 10px"></h3>
+        <p class="muted" id="posNote" style="font-size:13px;margin-bottom:8px"></p>
+        <div class="field" style="max-width:220px"><label id="lblPosPin"></label><input id="posPin" class="num" dir="ltr" maxlength="8" inputmode="numeric"></div>
+        <button class="btn" id="posPinSave" style="padding:9px 20px;font-size:14px"></button>
+
         <h3 id="admBackupTitle" style="color:var(--green);margin:24px 0 10px"></h3>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn ghost" id="backupBtn" style="padding:8px 16px;font-size:14px"></button>
@@ -875,6 +882,7 @@ footer a:hover{color:var(--gold2)}
       <h3 id="adminTitle2"></h3>
       <div class="msg err" id="adminErr2"></div>
       <div class="field"><label id="adminPassLbl2"></label><input type="password" id="adminPass2" class="num"></div>
+      <label class="chk" style="margin-bottom:10px"><input type="checkbox" id="rememberChk2"> <span id="rememberLbl2"></span></label><br>
       <button class="btn" id="adminEnter2"></button>
     </div>
     <div id="userProfile" style="display:none">
@@ -1012,7 +1020,9 @@ ar:{dir:"rtl",
   dailyReportBtn:"📊 تقرير اليوم واتساب", reportFor:"تقرير مبيعات نُسُك ليوم", tileInstore:"بيع من المحل", instoreTitle:"تسجيل بيع من المحل", registerSale:"✓ تسجيل البيع", saleDone:"سُجّل البيع ✓",
   unitPriceLbl:"سعر القطعة $", emptySale:"ابحث وأضف منتجات أولاً", storeTag:"🏪 من المحل",
   srcFilterLbl:"قناة البيع", srcAll:"كل القنوات", srcWeb:"🌐 الموقع", srcStore:"🏪 المحل", optionalMark:"(اختياري)", isDiscLbl:"حسم على البيع", discPct:"نسبة %", discAmt:"مبلغ $", storeDiscTitle:"حسومات المحل",
-  ofStoreSales:"من مبيعات المحل", discHighWarn:"⚠ الحسم تجاوز 20%", beforeDisc:"قبل الحسم", saveBtn:"حفظ", confirmPassLbl:"تأكيد كلمة المرور الجديدة", passMismatch:"كلمتا المرور غير متطابقتين", orderNum:"رقم الطلب", thanksTitle:"شكراً لطلبكم! 🌙", thanksBody:"تم إرسال طلبكم — سنؤكده معكم قريباً عبر واتساب.",
+  ofStoreSales:"من مبيعات المحل", discHighWarn:"⚠ الحسم تجاوز 20%", beforeDisc:"قبل الحسم", rememberMe:"تذكرني على هذا الجهاز (30 يوماً)", posPinTitle:"شاشة الكاشير — بيع من المحل", posPinPrompt:"أدخل رمز الكاشير",
+  posPinLbl:"رمز الكاشير PIN (4-8 أرقام)", posPinSaved:"حُفظ رمز الكاشير ✓", posPinShort:"الرمز يجب أن يكون 4-8 أرقام",
+  posPinMissing:"لم يُحدَّد رمز كاشير بعد — حدده من إعدادات الإدارة", posLinkNote:"شاشة الكاشير: أضف #pos إلى نهاية رابط الموقع وشاركه مع من يعمل على الكاشير — يسجل المبيعات فقط دون الوصول لأي شيء آخر", posSectionTitle:"رمز الكاشير", saveBtn:"حفظ", confirmPassLbl:"تأكيد كلمة المرور الجديدة", passMismatch:"كلمتا المرور غير متطابقتين", orderNum:"رقم الطلب", thanksTitle:"شكراً لطلبكم! 🌙", thanksBody:"تم إرسال طلبكم — سنؤكده معكم قريباً عبر واتساب.",
   passTitle:"تغيير كلمة مرور الإدارة", curPassLbl:"كلمة المرور الحالية", newPassLbl:"كلمة المرور الجديدة", passChanged:"تم تغيير كلمة المرور ✓",
   shareStore:"📤 شارك المتجر", shareStoreMsg:"تسوقوا هدايا ودينيات مميزة من متجر نُسُك 🌙", waBlocked:"نُسخ الرابط ✓ — الصقه في متصفحك لفتح واتساب",
   notesLbl:"ملاحظات الطلب (اختياري)", confirmDeliver:"✓ تأكيد التسليم", delivered:"تم التسليم", pendingLbl:"قيد التنفيذ",
@@ -1089,7 +1099,9 @@ en:{dir:"ltr",
   dailyReportBtn:"📊 Today's report to WhatsApp", reportFor:"Nusuk sales report for", tileInstore:"In-store sale", instoreTitle:"Register in-store sale", registerSale:"✓ Register sale", saleDone:"Sale registered ✓",
   unitPriceLbl:"Unit price $", emptySale:"Search and add products first", storeTag:"🏪 In-store",
   srcFilterLbl:"Sales channel", srcAll:"All channels", srcWeb:"🌐 Website", srcStore:"🏪 Store", optionalMark:"(optional)", isDiscLbl:"Sale discount", discPct:"Percent %", discAmt:"Amount $", storeDiscTitle:"In-store discounts",
-  ofStoreSales:"of store sales", discHighWarn:"⚠ Discount exceeds 20%", beforeDisc:"Before discount", saveBtn:"Save", confirmPassLbl:"Confirm new password", passMismatch:"Passwords do not match", orderNum:"Order no.", thanksTitle:"Thank you for your order! 🌙", thanksBody:"Your order was sent — we will confirm it with you on WhatsApp shortly.",
+  ofStoreSales:"of store sales", discHighWarn:"⚠ Discount exceeds 20%", beforeDisc:"Before discount", rememberMe:"Remember me on this device (30 days)", posPinTitle:"Cashier screen — In-store sale", posPinPrompt:"Enter cashier PIN",
+  posPinLbl:"Cashier PIN (4-8 digits)", posPinSaved:"Cashier PIN saved ✓", posPinShort:"PIN must be 4-8 digits",
+  posPinMissing:"No cashier PIN set yet — set it in admin settings", posLinkNote:"Cashier screen: add #pos to the site link — sales entry only, no access to anything else", posSectionTitle:"Cashier PIN", saveBtn:"Save", confirmPassLbl:"Confirm new password", passMismatch:"Passwords do not match", orderNum:"Order no.", thanksTitle:"Thank you for your order! 🌙", thanksBody:"Your order was sent — we will confirm it with you on WhatsApp shortly.",
   passTitle:"Change admin password", curPassLbl:"Current password", newPassLbl:"New password", passChanged:"Password changed ✓",
   shareStore:"📤 Share the store", shareStoreMsg:"Shop unique gifts & religious items from Nusuk Store 🌙", waBlocked:"Link copied ✓ — paste it in your browser to open WhatsApp",
   notesLbl:"Order notes (optional)", confirmDeliver:"✓ Confirm delivery", delivered:"Delivered", pendingLbl:"Pending",
@@ -1166,7 +1178,9 @@ fa:{dir:"rtl",
   dailyReportBtn:"📊 گزارش امروز به واتساپ", reportFor:"گزارش فروش نُسُک برای", tileInstore:"فروش حضوری", instoreTitle:"ثبت فروش حضوری", registerSale:"✓ ثبت فروش", saleDone:"فروش ثبت شد ✓",
   unitPriceLbl:"قیمت واحد $", emptySale:"ابتدا محصول اضافه کنید", storeTag:"🏪 حضوری",
   srcFilterLbl:"کانال فروش", srcAll:"همه کانال‌ها", srcWeb:"🌐 سایت", srcStore:"🏪 فروشگاه", optionalMark:"(اختیاری)", isDiscLbl:"تخفیف فروش", discPct:"درصد %", discAmt:"مبلغ $", storeDiscTitle:"تخفیف‌های حضوری",
-  ofStoreSales:"از فروش حضوری", discHighWarn:"⚠ تخفیف از ۲۰٪ گذشت", beforeDisc:"قبل از تخفیف", saveBtn:"ذخیره", confirmPassLbl:"تکرار رمز جدید", passMismatch:"رمزها یکسان نیستند", orderNum:"شماره سفارش", thanksTitle:"از سفارش شما متشکریم! 🌙", thanksBody:"سفارش ارسال شد — به‌زودی در واتساپ تأیید می‌کنیم.",
+  ofStoreSales:"از فروش حضوری", discHighWarn:"⚠ تخفیف از ۲۰٪ گذشت", beforeDisc:"قبل از تخفیف", rememberMe:"مرا به خاطر بسپار (۳۰ روز)", posPinTitle:"صفحه صندوق — فروش حضوری", posPinPrompt:"رمز صندوق را وارد کنید",
+  posPinLbl:"رمز صندوق (۴-۸ رقم)", posPinSaved:"ذخیره شد ✓", posPinShort:"رمز باید ۴-۸ رقم باشد",
+  posPinMissing:"رمز صندوق تعیین نشده — از تنظیمات مدیریت تعیین کنید", posLinkNote:"صفحه صندوق: #pos را به لینک سایت اضافه کنید", posSectionTitle:"رمز صندوق", saveBtn:"ذخیره", confirmPassLbl:"تکرار رمز جدید", passMismatch:"رمزها یکسان نیستند", orderNum:"شماره سفارش", thanksTitle:"از سفارش شما متشکریم! 🌙", thanksBody:"سفارش ارسال شد — به‌زودی در واتساپ تأیید می‌کنیم.",
   passTitle:"تغییر رمز مدیر", curPassLbl:"رمز فعلی", newPassLbl:"رمز جدید", passChanged:"رمز تغییر کرد ✓",
   shareStore:"📤 اشتراک فروشگاه", shareStoreMsg:"از فروشگاه نُسُک هدایای مذهبی ویژه بخرید 🌙", waBlocked:"لینک کپی شد ✓ — در مرورگر بچسبانید",
   notesLbl:"یادداشت سفارش (اختیاری)", confirmDeliver:"✓ تأیید تحویل", delivered:"تحویل شد", pendingLbl:"در انتظار",
@@ -1236,12 +1250,13 @@ const t = () => T[lang];
 const SUPABASE_URL = "https://fcbkcxuytehqcdjcxuqs.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZjYmtjeHV5dGVocWNkamN4dXFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0NDgyNTAsImV4cCI6MjA5OTAyNDI1MH0.U3a53licnsercn1Dt81dnlHLGlYZESP1DfohSzbIfVQ";
 
-const CLOUD = /^https:\/\//.test(SUPABASE_URL) && SUPABASE_KEY.length > 25;  // يقبل مفتاح anon القديم (eyJ...) أو الجديد (sb_publishable_...)
+const SB_URL = SUPABASE_URL.replace(/\/rest\/v1\/?$/,"").replace(/\/+$/,"");  // تنظيف تلقائي للرابط
+const CLOUD = /^https:\/\//.test(SB_URL) && SUPABASE_KEY.length > 25;  // يقبل مفتاح anon القديم (eyJ...) أو الجديد (sb_publishable_...)
 const HAS_CLAUDE = typeof window.storage !== "undefined" && window.storage && window.storage.get;
 const PERSONAL_KEYS = new Set(["favs","member","cart","lang","view"]); // بيانات الجهاز فقط
 
 async function sbFetch(path, opts={}){
-  const r = await fetch(SUPABASE_URL + "/rest/v1/" + path, {
+  const r = await fetch(SB_URL + "/rest/v1/" + path, {
     method: opts.method || "GET",
     headers: {
       apikey: SUPABASE_KEY,
@@ -1436,6 +1451,8 @@ function applyLang(){
   set("admPolicyTitle",L.policyEditTitle); set("lblPolAr",L.tagAr); set("lblPolEn",L.tagEn); set("lblPolFa",L.tagFa); set("polSave",L.saveBtn);
   set("admAboutTitle",L.aboutEditTitle); set("lblAbAr",L.tagAr); set("lblAbEn",L.tagEn); set("lblAbFa",L.tagFa); set("abSave",L.saveBtn);
   set("demoFillBtn",L.demoFill); set("demoClearBtn",L.demoClear);
+  set("rememberLbl",L.rememberMe); set("rememberLbl2",L.rememberMe);
+  set("admPosTitle",L.posSectionTitle); set("posNote",L.posLinkNote); set("lblPosPin",L.posPinLbl); set("posPinSave",L.saveBtn);
   set("admPassTitle",L.passTitle); set("lblCurPass",L.curPassLbl); set("lblNewPass",L.newPassLbl); set("lblNewPass2",L.confirmPassLbl); set("passSave",L.saveBtn);
   set("thanksTitleEl",L.thanksTitle); set("thanksBodyEl",L.thanksBody); set("thanksNumLbl",L.orderNum);
   set("shareStoreTxt",L.shareStore);
@@ -1977,23 +1994,59 @@ async function changeAdminPass(){
   ["curPass","newPass","newPass2"].forEach(id=>document.getElementById(id).value="");
   toast(L.passChanged);
 }
+let posMode = (location.hash === "#pos");
+function doAdminUnlock(){
+  document.getElementById("adminLogin").style.display="none";
+  document.getElementById("adminPanel").style.display="block";
+  if(posMode){
+    // وضع الكاشير: شاشة بيع المحل فقط
+    document.getElementById("qStats").style.display="none";
+    document.getElementById("adminHome").style.display="none";
+    document.querySelectorAll(".apanel").forEach(p=>p.classList.remove("open"));
+    const pnl=document.getElementById("ap-instore");
+    pnl.classList.add("open");
+    const back=pnl.querySelector(".apback"); if(back) back.style.display="none";
+    renderInstore();
+    return;
+  }
+  adminUnlocked=true;
+  showAdminHome();
+  renderQuickStats(); renderTileBadges();
+  document.getElementById("bText").value=bannerData.txt||"";
+  document.getElementById("bOn").checked=!!bannerData.on;
+  if(aboutLine){document.getElementById("tagAr").value=aboutLine.ar||"";document.getElementById("tagEn").value=aboutLine.en||"";document.getElementById("tagFa").value=aboutLine.fa||"";}
+  (async()=>{
+    policyOverride=await sGet("policyText",true);
+    aboutOverride=await sGet("aboutText",true);
+    if(policyOverride){document.getElementById("polAr").value=policyOverride.ar||"";document.getElementById("polEn").value=policyOverride.en||"";document.getElementById("polFa").value=policyOverride.fa||"";}
+    if(aboutOverride){document.getElementById("abAr").value=aboutOverride.ar||"";document.getElementById("abEn").value=aboutOverride.en||"";document.getElementById("abFa").value=aboutOverride.fa||"";}
+  })();
+  renderCatsAdmin(); renderFaqAdmin();
+  renderAdminFilter();renderAdminList();renderCoupons();renderOrders();renderBuyers();
+}
+async function checkPosPin(pin){
+  const stored=await sGet("posPinHash",true);
+  if(!stored) return null;   // لم يُحدَّد رمز بعد
+  return stored===await hashPass(pin);
+}
 async function adminEnter(){
-  const ok=await checkAdminPass(document.getElementById("adminPass").value);
-  document.getElementById("adminErr").style.display=ok?"none":"block";
-  if(ok){document.getElementById("adminLogin").style.display="none";document.getElementById("adminPanel").style.display="block";adminUnlocked=true;
-    showAdminHome();
-    renderQuickStats(); renderTileBadges();
-    document.getElementById("bText").value=bannerData.txt||"";
-    document.getElementById("bOn").checked=!!bannerData.on;
-    if(aboutLine){document.getElementById("tagAr").value=aboutLine.ar||"";document.getElementById("tagEn").value=aboutLine.en||"";document.getElementById("tagFa").value=aboutLine.fa||"";}
-    (async()=>{
-      policyOverride=await sGet("policyText",true);
-      aboutOverride=await sGet("aboutText",true);
-      if(policyOverride){document.getElementById("polAr").value=policyOverride.ar||"";document.getElementById("polEn").value=policyOverride.en||"";document.getElementById("polFa").value=policyOverride.fa||"";}
-      if(aboutOverride){document.getElementById("abAr").value=aboutOverride.ar||"";document.getElementById("abEn").value=aboutOverride.en||"";document.getElementById("abFa").value=aboutOverride.fa||"";}
-    })();
-    renderCatsAdmin(); renderFaqAdmin();
-    renderAdminFilter();renderAdminList();renderCoupons();renderOrders();renderBuyers();}
+  const val=document.getElementById("adminPass").value;
+  const err=document.getElementById("adminErr");
+  if(posMode){
+    const ok=await checkPosPin(val);
+    if(ok===null){ err.textContent=t().posPinMissing; err.style.display="block"; return; }
+    err.textContent=t().wrongPass;
+    err.style.display=ok?"none":"block";
+    if(ok) doAdminUnlock();
+    return;
+  }
+  const ok=await checkAdminPass(val);
+  err.style.display=ok?"none":"block";
+  if(ok){
+    if(document.getElementById("rememberChk").checked)
+      await localSet("adminRemember",{until:Date.now()+30*86400000});
+    doAdminUnlock();
+  }
 }
 async function saveProduct(){
   const nameAr=document.getElementById("pNameAr").value.trim();
@@ -2407,6 +2460,7 @@ async function renderTileBadges(){
 }
 function adminLogout(){
   adminUnlocked=false;
+  localSet("adminRemember",null);
   document.getElementById("adminPanel").style.display="none";
   document.getElementById("adminLogin").style.display="block";
   document.getElementById("adminPass").value="";
@@ -2492,6 +2546,14 @@ async function clearDemoData(){
   toast(L.demoCleared);
 }
 
+async function savePosPin(){
+  const L=t();
+  const pin=document.getElementById("posPin").value.trim();
+  if(!/^\d{4,8}$/.test(pin)){toast(L.posPinShort);return;}
+  await sSet("posPinHash",await hashPass(pin),true);
+  document.getElementById("posPin").value="";
+  toast(L.posPinSaved);
+}
 async function saveBanner(){
   bannerData={txt:document.getElementById("bText").value.trim(), on:document.getElementById("bOn").checked};
   await sSet("banner",bannerData,true);
@@ -3054,25 +3116,12 @@ async function adminEnter2(){
   const ok=await checkAdminPass(document.getElementById("adminPass2").value);
   document.getElementById("adminErr2").style.display=ok?"none":"block";
   if(ok){
+    if(document.getElementById("rememberChk2").checked)
+      await localSet("adminRemember",{until:Date.now()+30*86400000});
     document.getElementById("adminPass2").value="";
     closeOverlay("userOverlay");
     go("admin");
-    document.getElementById("adminLogin").style.display="none";
-    document.getElementById("adminPanel").style.display="block";
-    adminUnlocked=true;
-    showAdminHome();
-    renderQuickStats(); renderTileBadges();
-    document.getElementById("bText").value=bannerData.txt||"";
-    document.getElementById("bOn").checked=!!bannerData.on;
-    if(aboutLine){document.getElementById("tagAr").value=aboutLine.ar||"";document.getElementById("tagEn").value=aboutLine.en||"";document.getElementById("tagFa").value=aboutLine.fa||"";}
-    (async()=>{
-      policyOverride=await sGet("policyText",true);
-      aboutOverride=await sGet("aboutText",true);
-      if(policyOverride){document.getElementById("polAr").value=policyOverride.ar||"";document.getElementById("polEn").value=policyOverride.en||"";document.getElementById("polFa").value=policyOverride.fa||"";}
-      if(aboutOverride){document.getElementById("abAr").value=aboutOverride.ar||"";document.getElementById("abEn").value=aboutOverride.en||"";document.getElementById("abFa").value=aboutOverride.fa||"";}
-    })();
-    renderCatsAdmin(); renderFaqAdmin();
-    renderAdminFilter();renderAdminList();renderCoupons();renderOrders();renderBuyers();
+    doAdminUnlock();
   }
 }
 document.getElementById("adminEnter2").onclick=adminEnter2;
@@ -3106,6 +3155,7 @@ document.getElementById("polSave").onclick=savePolicy;
 document.getElementById("abSave").onclick=saveAbout;
 document.getElementById("demoFillBtn").onclick=()=>fillDemoData(false);
 document.getElementById("passSave").onclick=changeAdminPass;
+document.getElementById("posPinSave").onclick=savePosPin;
 document.getElementById("adminLogout").onclick=adminLogout;
 document.getElementById("dailyReport").onclick=sendDailyReport;
 document.getElementById("isSearch").addEventListener("input",renderInstore);
@@ -3202,6 +3252,18 @@ if(typeof CLOUD!=="undefined" && CLOUD){
   await loadState();
   applyLang();
   resetSlideTimer();
+  // وضع الكاشير أو الدخول المحفوظ
+  if(posMode){
+    go("admin");
+    document.getElementById("adminTitle").textContent=t().posPinTitle;
+    document.getElementById("adminPassLbl").textContent=t().posPinPrompt;
+    document.getElementById("rememberChk").parentElement.style.display="none";
+  } else {
+    try{
+      const rem=await localGet("adminRemember");
+      if(rem && rem.until>Date.now()){ go("admin"); doAdminUnlock(); }
+    }catch(e){}
+  }
   const wait=Math.max(0, 600-(Date.now()-t0));
   setTimeout(()=>{
     const sp=document.getElementById("splash");
