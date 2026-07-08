@@ -1365,6 +1365,25 @@ async function localSet(key, val, shared=false){
   try{ localStorage.setItem("nusuk:"+key, JSON.stringify(val)); }catch(e){}
 }
 
+/* حفظ طلب واحد مباشرة — أمتن من إعادة كتابة الجدول، ويُظهر الخطأ للمستخدم */
+async function addOrder(o){
+  if(CLOUD){
+    try{
+      await sbFetch("orders",{method:"POST",body:[M.orderRow(o)],prefer:"return=minimal"});
+      return true;
+    }catch(e){
+      console.error("addOrder",e);
+      const msg=(e.message||"").replace(/^Supabase:\s*/,"").slice(0,160);
+      toast("⚠ لم يُحفظ الطلب — "+msg);
+      return false;
+    }
+  }
+  const orders=(await localGet("orders",true))||[];
+  orders.push(o);
+  await localSet("orders",orders.slice(-300),true);
+  return true;
+}
+
 /* --- الموزّع الرئيسي --- */
 async function sGet(key, shared=false){
   if(!CLOUD || PERSONAL_KEYS.has(key)) return localGet(key, shared);
@@ -1968,14 +1987,12 @@ async function nextOrderNum(){
 }
 async function logOrder(num,name,phone,addr,notes,total,disc){
   try{
-    const orders=(await sGet("orders",true))||[];
-    orders.push({
+    await addOrder({
       num,
       d:Date.now(), n:name||"—", p:phone||"—", a:addr||"—", notes:notes||"", total, disc:disc||0,
       coupon:appliedCoupon||null,
       items:cart.map(c=>{const p=products.find(x=>x.id===c.id);return p?{id:p.id,n:p.name.ar,q:c.qty,u:effectiveUnit(p),cat:p.cat,sub:p.sub||null,v:c.v||null}:null;}).filter(Boolean)
     });
-    await sSet("orders",orders.slice(-300),true);
   }catch(e){}
 }
 
@@ -2025,7 +2042,7 @@ async function renderBuyers(){
   entries.sort((a,b)=>(b[1].d||0)-(a[1].d||0)).forEach(([phone,u])=>{
     const d=document.createElement("div"); d.className="order-row";
     const date=u.d?new Date(u.d).toLocaleDateString("en-GB"):"—";
-    const mine=allOrders.filter(o=>o.p===phone&&!o.c);
+    const mine=allOrders.filter(o=>o.p===phone&&!o.c&&o.s);
     const spend=mine.reduce((s,o)=>s+(o.total||0),0);
     d.innerHTML=`<div class="oh" style="cursor:pointer"><span>${u.name}</span><span style="display:flex;gap:8px;align-items:center"><span class="num">${phone}</span><button class="wa-mini bw-btn" aria-label="whatsapp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.5 14.1c-.2.7-1.3 1.3-1.8 1.3-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.1.2-.3.3-.1.6.2.3.8 1.4 1.8 2.2 1.3 1.1 2.3 1.5 2.6 1.6.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3 0 .1 0 .8-.2 1.5z"/></svg></button></span></div>
       <div class="muted">${L.regDate}: <span class="num">${date}</span> — ${L.buyerOrdersLbl}: <span class="num">${mine.length}</span> — ${L.totalSpendLbl}: <span class="num">${fmt(spend)}</span></div>
@@ -2574,11 +2591,10 @@ async function registerInstoreSale(){
   const dv=document.getElementById("isDate").value;
   const todayStr=new Date().toISOString().slice(0,10);
   const saleD=(dv&&dv!==todayStr)?new Date(dv+"T12:00:00").getTime():Date.now();
-  const orders=(await sGet("orders",true))||[];
   const saleObj={num, d:saleD, n:name||"—", p:phone||"—", a:"—", notes:"", total, disc, coupon:null, items, s:true, src:"store"};
-  orders.push(saleObj);
+  const saved=await addOrder(saleObj);
+  if(!saved) return;   // فشل الحفظ: نبقي السلة كما هي والرسالة تشرح السبب
   lastSale=saleObj;
-  await sSet("orders",orders.slice(-300),true);
   isCart=[]; isDiscPct=0; isDiscAmt=0;
   ["isSearch","isName","isPhone","isDiscPct","isDiscAmt"].forEach(id=>document.getElementById(id).value="");
   document.getElementById("isDate").value=new Date().toISOString().slice(0,10);
@@ -2630,7 +2646,7 @@ async function renderQuickStats(){
   const now=new Date(); const dayStart=new Date(now); dayStart.setHours(0,0,0,0);
   const monthStart=new Date(now.getFullYear(),now.getMonth(),1).getTime();
   const today=orders.filter(o=>o.d>=dayStart.getTime()&&!o.c).length;
-  const monthSales=orders.filter(o=>o.d>=monthStart&&!o.c).reduce((s,o)=>s+(o.total||0),0);
+  const monthSales=orders.filter(o=>o.d>=monthStart&&!o.c&&o.s).reduce((s,o)=>s+(o.total||0),0);
   document.getElementById("qsToday").textContent=today;
   document.getElementById("qsMonth").textContent=fmt(monthSales);
   document.getElementById("qsProducts").textContent=products.length;
@@ -2918,9 +2934,11 @@ async function renderAnalytics(){
 
   anOrders=(await sGet("orders",true))||[];
   const [s,e]=periodRange();
-  let list=anOrders.filter(o=>o.d>=s&&o.d<=e&&!o.c);
-  if(anSrcSel==="store") list=list.filter(o=>o.src==="store");
-  else if(anSrcSel==="web") list=list.filter(o=>o.src!=="store");
+  let active=anOrders.filter(o=>o.d>=s&&o.d<=e&&!o.c);
+  if(anSrcSel==="store") active=active.filter(o=>o.src==="store");
+  else if(anSrcSel==="web") active=active.filter(o=>o.src!=="store");
+  // المبيعات المعتمدة = المؤكد تسليمها فقط (قيد التنفيذ لا يُحتسب حتى تأكيده)
+  let list=active.filter(o=>o.s);
   // عند اختيار قسم: تُحسب القيم من عناصر ذلك القسم فقط
   const scoped=list.map(o=>{
     const its=o.items.filter(itemInCat);
@@ -2970,7 +2988,7 @@ async function renderAnalytics(){
 
   // مقارنة بالفترة السابقة المساوية
   const span=e-s;
-  let prevList=anOrders.filter(o=>o.d>=s-span&&o.d<s&&!o.c);
+  let prevList=anOrders.filter(o=>o.d>=s-span&&o.d<s&&!o.c&&o.s);
   if(anSrcSel==="store") prevList=prevList.filter(o=>o.src==="store");
   else if(anSrcSel==="web") prevList=prevList.filter(o=>o.src!=="store");
   const prevScoped=prevList.map(o=>{
@@ -3013,9 +3031,8 @@ async function renderAnalytics(){
   periodPhones.forEach(ph=>{ if(firstOrder[ph]>=s) newC++; else retC++; });
   document.getElementById("insCust").textContent=`${newC} ${L.newCustLbl} | ${retC} ${L.retCustLbl}`;
 
-  // معدل الإتمام
-  const delivered=list.filter(o=>o.s).length;
-  document.getElementById("insFulfill").textContent=list.length?Math.round(delivered/list.length*100)+"%":"—";
+  // معدل الإتمام: المؤكد تسليمه من إجمالي الطلبات غير الملغاة
+  document.getElementById("insFulfill").textContent=active.length?Math.round(list.length/active.length*100)+"%":"—";
 
   // أداء الكوبونات في الفترة
   const cp={};
@@ -3090,7 +3107,9 @@ async function sendDailyReport(){
   const L=t();
   const orders=(await sGet("orders",true))||[];
   const dayStart=new Date(); dayStart.setHours(0,0,0,0);
-  const today=orders.filter(o=>o.d>=dayStart.getTime()&&!o.c);
+  const todayAll=orders.filter(o=>o.d>=dayStart.getTime()&&!o.c);
+  const today=todayAll.filter(o=>o.s);   // المبيعات المؤكدة فقط
+  const pending=todayAll.length-today.length;
   const rev=today.reduce((a,o)=>a+(o.total||0),0);
   const web=today.filter(o=>o.src!=="store"), store=today.filter(o=>o.src==="store");
   const webRev=web.reduce((a,o)=>a+(o.total||0),0), storeRev=store.reduce((a,o)=>a+(o.total||0),0);
@@ -3100,6 +3119,7 @@ async function sendDailyReport(){
   let msg=`${L.reportFor} ${new Date().toLocaleDateString("en-GB")}\n`;
   msg+=`${L.ordersCount}: ${today.length}\n${L.revenue}: ${fmt(rev)}\n`;
   msg+=`${L.webChannel}: ${web.length} — ${fmt(webRev)}\n${L.storeChannel}: ${store.length} — ${fmt(storeRev)}\n`;
+  if(pending) msg+=`⏳ ${t().pendingLbl}: ${pending}\n`;
   if(top.length){ msg+=`${L.topProducts}:\n`; top.forEach(([n,q])=>msg+=`• ${n} ×${q}\n`); }
   openExternal(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`);
 }
@@ -3283,7 +3303,7 @@ function renderFAQ(){
 /* ============================================================
    أدوات عامة
 ============================================================ */
-function toast(msg){const el=document.getElementById("toast");el.textContent=msg;el.classList.add("show");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("show"),2200);}
+function toast(msg){const el=document.getElementById("toast");el.textContent=msg;el.classList.add("show");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("show"),msg.startsWith("⚠")?6000:2200);}
 function openOverlay(id){document.getElementById(id).classList.add("open");}
 function closeOverlay(id){document.getElementById(id).classList.remove("open");}
 
