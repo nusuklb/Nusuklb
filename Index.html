@@ -377,6 +377,7 @@ footer a:hover{color:var(--gold2)}
 .lb-nav:active{background:rgba(255,255,255,.3)}
 #lbPrev{inset-inline-start:12px}
 #lbNext{inset-inline-end:12px}
+html[dir=rtl] .lb-nav svg{transform:scaleX(-1)}
 #lbDots{position:absolute;bottom:22px;left:0;right:0;display:flex;gap:8px;justify-content:center}
 #lbDots span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.35)}
 #lbDots span.on{background:var(--gold)}
@@ -1307,7 +1308,7 @@ const CLOUD = /^https:\/\//.test(SB_URL) && SUPABASE_KEY.length > 25;  // يقب
 const HAS_CLAUDE = typeof window.storage !== "undefined" && window.storage && window.storage.get;
 const PERSONAL_KEYS = new Set(["favs","member","cart","lang","view"]); // بيانات الجهاز فقط
 const posMode = (location.hash === "#pos");   // وضع شاشة الكاشير
-const APP_VERSION = "v9-عارض-الصور";        // يتغير مع كل نسخة
+const APP_VERSION = "v12-جودة-متوازنة";        // يتغير مع كل نسخة
 
 async function sbFetch(path, opts={}){
   const r = await fetch(SB_URL + "/rest/v1/" + path, {
@@ -2368,17 +2369,17 @@ function renderImgPreviews(){
 }
 document.getElementById("pImgFile").onchange=async e=>{
   const f=e.target.files[0]; if(!f) return;
-  mainImgData=await compressImage(f);
+  mainImgData=await compressImage(f, 1600, 1.0);
   e.target.value=""; renderImgPreviews();
 };
 document.getElementById("pImgsFile").onchange=async e=>{
-  for(const f of e.target.files){ extraImgsData.push(await compressImage(f)); }
+  for(const f of e.target.files){ extraImgsData.push(await compressImage(f, 1100, 0.82)); }
   e.target.value=""; renderImgPreviews();
 };
 
 document.getElementById("sImgFile").onchange=async e=>{
   const f=e.target.files[0]; if(!f) return;
-  slideImgData=await compressImage(f, 1100, 0.75);
+  slideImgData=await compressImage(f, 1100, 0.8);
   e.target.value="";
   const p=document.getElementById("slidePrev");
   p.innerHTML=`<div class="pv"><img src="${slideImgData}"><button type="button" class="rm">✕</button></div>`;
