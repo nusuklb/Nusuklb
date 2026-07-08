@@ -112,11 +112,11 @@ html[dir="rtl"] .c-arrow svg{transform:scaleX(-1)}
 .card{background:var(--ivory);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;min-width:220px;max-width:240px;scroll-snap-align:start;flex:0 0 auto;display:flex;flex-direction:column;transition:.2s}
 @media(hover:hover){.card:hover{box-shadow:0 10px 26px rgba(13,58,45,.14);transform:translateY(-3px)}}
 .grid .card{min-width:0;max-width:none}
-.card .ph{height:170px;background:var(--green2) center/cover no-repeat;position:relative}
+.card .ph{height:auto;aspect-ratio:1/1.15;background:var(--green2) center/cover no-repeat;position:relative}
 .card .fav{position:absolute;top:8px;inset-inline-end:8px;width:34px;height:34px;border-radius:50%;background:rgba(250,246,238,.92);display:grid;place-items:center;color:var(--green)}
 .card .fav svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
 .card .fav.on svg{fill:var(--wine);stroke:var(--wine)}
-.card .bd{padding:12px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card .bd{padding:8px 12px 10px;display:flex;flex-direction:column;gap:4px;flex:1}
 .card .nm{font-weight:700;font-size:15px;font-family:'Segoe UI',Tahoma,'Noto Sans Arabic',Arial,sans-serif}
 #prodDetail h3:first-of-type{font-family:'Segoe UI',Tahoma,'Noto Sans Arabic',Arial,sans-serif;font-weight:700}
 .cart-item div:first-of-type+div>div:first-child{font-family:'Segoe UI',Tahoma,Arial,sans-serif}
@@ -365,7 +365,7 @@ footer a:hover{color:var(--gold2)}
 .is-disc .dq.on{background:var(--green);color:var(--gold2);border-color:var(--green)}
 .is-disc input.warn{border-color:var(--red)!important;background:#fdeeee}
 
-#focusBox{width:220px;height:190px;border:2px solid var(--gold);border-radius:10px;background-repeat:no-repeat;background-size:cover;cursor:grab;touch-action:none;user-select:none}
+#focusBox{width:220px;height:auto;aspect-ratio:1/1.15;border:2px solid var(--gold);border-radius:10px;background-repeat:no-repeat;background-size:cover;cursor:grab;touch-action:none;user-select:none}
 #focusBox:active{cursor:grabbing}
 
 /* عارض الصورة المكبرة */
@@ -382,6 +382,11 @@ html[dir=rtl] .lb-nav svg{transform:scaleX(-1)}
 #lbDots span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.35)}
 #lbDots span.on{background:var(--gold)}
 #pdImg{cursor:zoom-in}
+
+/* نافذة المنتج: حشوات مضغوطة ومساحة أكبر للصورة */
+#prodOverlay .panel{padding:12px 14px 16px}
+#prodDetail > h3:first-of-type{margin:8px 0 2px;font-size:19px}
+#prodDetail .gal{margin-bottom:4px}
 
 /* toast */
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--green);color:var(--gold2);padding:12px 24px;border-radius:30px;font-size:14px;z-index:200;opacity:0;transition:.3s;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
@@ -1308,7 +1313,7 @@ const CLOUD = /^https:\/\//.test(SB_URL) && SUPABASE_KEY.length > 25;  // يقب
 const HAS_CLAUDE = typeof window.storage !== "undefined" && window.storage && window.storage.get;
 const PERSONAL_KEYS = new Set(["favs","member","cart","lang","view"]); // بيانات الجهاز فقط
 const posMode = (location.hash === "#pos");   // وضع شاشة الكاشير
-const APP_VERSION = "v12-جودة-متوازنة";        // يتغير مع كل نسخة
+const APP_VERSION = "v14-صور-أطول";        // يتغير مع كل نسخة
 
 async function sbFetch(path, opts={}){
   const r = await fetch(SB_URL + "/rest/v1/" + path, {
@@ -1749,7 +1754,7 @@ async function showProduct(p){
   if(p.isNew) badges+=`<span class="bnew">${L.newBadge}</span> `;
   if(p.soldout) badges+=`<span class="bsold">${L.soldout}</span>`;
   document.getElementById("prodDetail").innerHTML=`
-    <div id="pdImg" style="height:220px;border-radius:10px;background:${main?`url('${main}') center/cover`:"var(--green2)"};margin-bottom:6px;position:relative">
+    <div id="pdImg" style="height:clamp(340px,88vw,560px);border-radius:10px;background:${main?`url('${main}') center/cover`:"var(--green2)"};margin-bottom:6px;position:relative">
       ${badges?`<div class="pbadge">${badges}</div>`:""}
     </div>
     ${gal}
@@ -1757,7 +1762,7 @@ async function showProduct(p){
     <p class="muted" style="margin-bottom:6px">${p.desc?(p.desc[lang]||p.desc.ar||""):""}</p>
     ${p.material?`<p class="muted" style="margin-bottom:4px">◦ ${L.material}: ${p.material}</p>`:""}
     ${p.size?`<p class="muted" style="margin-bottom:6px">◦ ${L.sizeLbl}: ${p.size}</p>`:""}
-    <p class="num" style="color:var(--green);font-weight:700;font-size:20px;margin-bottom:12px">${fmt(p.price)}${(p.oldPrice&&p.oldPrice>p.price)?`<span class="oldpr num" style="font-size:15px">${fmt(p.oldPrice)}</span>`:""}</p>
+    <p class="num" style="color:var(--green);font-weight:700;font-size:20px;margin-bottom:8px">${fmt(p.price)}${(p.oldPrice&&p.oldPrice>p.price)?`<span class="oldpr num" style="font-size:15px">${fmt(p.oldPrice)}</span>`:""}</p>
     ${(p.variants&&p.variants.length)?`<p style="font-size:13.5px;font-weight:700;color:var(--green);margin-bottom:6px">${L.variantTitle}</p><div class="filters" id="pdVariants" style="margin-bottom:12px">${p.variants.map(v=>`<button class="chip" data-v="${v}">${v}</button>`).join("")}</div>`:""}
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
       <button class="btn" id="pdAdd" ${p.soldout?"disabled":""}>${p.soldout?L.soldout:L.detailsBtn}</button>
