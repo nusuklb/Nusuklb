@@ -368,6 +368,13 @@ footer a:hover{color:var(--gold2)}
 #focusBox{width:220px;height:190px;border:2px solid var(--gold);border-radius:10px;background-repeat:no-repeat;background-size:cover;cursor:grab;touch-action:none;user-select:none}
 #focusBox:active{cursor:grabbing}
 
+/* عارض الصورة المكبرة */
+#lightbox{position:fixed;inset:0;background:rgba(10,20,15,.93);z-index:600;display:none;align-items:center;justify-content:center;padding:20px}
+#lightbox.open{display:flex}
+#lightbox img{max-width:96vw;max-height:90vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+#lbClose{position:absolute;top:16px;inset-inline-end:16px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:19px;display:grid;place-items:center}
+#pdImg{cursor:zoom-in}
+
 /* toast */
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--green);color:var(--gold2);padding:12px 24px;border-radius:30px;font-size:14px;z-index:200;opacity:0;transition:.3s;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
 #toast.show{opacity:1}
@@ -634,6 +641,12 @@ footer a:hover{color:var(--gold2)}
           <div id="focusWrap" style="display:none;margin-top:8px">
             <p class="muted" style="font-size:12.5px;margin-bottom:6px" id="focusLblEl"></p>
             <div id="focusBox"></div>
+            <div style="width:220px;margin-top:8px">
+              <label style="font-size:11.5px;color:#77816f" id="focusXLbl"></label>
+              <input type="range" id="focusXSlider" min="0" max="100" value="50" style="width:100%">
+              <label style="font-size:11.5px;color:#77816f" id="focusYLbl"></label>
+              <input type="range" id="focusYSlider" min="0" max="100" value="50" style="width:100%">
+            </div>
             <button type="button" class="btn ghost" id="focusReset" style="padding:5px 14px;font-size:12.5px;margin-top:6px"></button>
           </div>
         </div>
@@ -943,6 +956,11 @@ footer a:hover{color:var(--gold2)}
   <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
 
+<div id="lightbox">
+  <button id="lbClose" aria-label="close">✕</button>
+  <img id="lbImg" alt="">
+</div>
+
 <div id="printReport"></div>
 
 <div id="toast" class="num"></div>
@@ -1040,7 +1058,7 @@ ar:{dir:"rtl",
   posPinLbl:"رمز الكاشير PIN (4-8 أرقام)", posPinSaved:"حُفظ رمز الكاشير ✓", posPinShort:"الرمز يجب أن يكون 4-8 أرقام",
   posPinMissing:"لم يُحدَّد رمز كاشير بعد — حدده من إعدادات الإدارة", posLinkNote:"شاشة الكاشير: أضف #pos إلى نهاية رابط الموقع وشاركه مع من يعمل على الكاشير — يسجل المبيعات فقط دون الوصول لأي شيء آخر", posSectionTitle:"رمز الكاشير", saleDateLbl:"تاريخ البيع", receiptWA:"📤 إرسال الفاتورة واتساب", receiptPrint:"🖨 طباعة الإيصال", receiptTitle:"فاتورة نُسُك",
   lastSaleLbl:"آخر بيع مسجَّل", noPhoneForReceipt:"لا يوجد رقم زبون لهذا البيع — الطباعة متاحة", thanksReceipt:"شكراً لتسوقكم من نُسُك 🌙",
-  editDateTip:"تعديل التاريخ", webChannel:"🌐 الموقع", storeChannel:"🏪 المحل", exitPos:"⏻ خروج من الكاشير", focusLbl:"اسحب الصورة لتحديد الجزء الظاهر على البطاقة", focusReset:"إعادة للوسط", saveBtn:"حفظ", confirmPassLbl:"تأكيد كلمة المرور الجديدة", passMismatch:"كلمتا المرور غير متطابقتين", orderNum:"رقم الطلب", thanksTitle:"شكراً لطلبكم! 🌙", thanksBody:"تم إرسال طلبكم — سنؤكده معكم قريباً عبر واتساب.",
+  editDateTip:"تعديل التاريخ", webChannel:"🌐 الموقع", storeChannel:"🏪 المحل", exitPos:"⏻ خروج من الكاشير", focusLbl:"اسحب الصورة لتحديد الجزء الظاهر على البطاقة", focusReset:"إعادة للوسط", focusX:"يميناً ← يساراً", focusY:"أعلى ↕ أسفل", saveBtn:"حفظ", confirmPassLbl:"تأكيد كلمة المرور الجديدة", passMismatch:"كلمتا المرور غير متطابقتين", orderNum:"رقم الطلب", thanksTitle:"شكراً لطلبكم! 🌙", thanksBody:"تم إرسال طلبكم — سنؤكده معكم قريباً عبر واتساب.",
   passTitle:"تغيير كلمة مرور الإدارة", curPassLbl:"كلمة المرور الحالية", newPassLbl:"كلمة المرور الجديدة", passChanged:"تم تغيير كلمة المرور ✓",
   shareStore:"📤 شارك المتجر", shareStoreMsg:"تسوقوا هدايا ودينيات مميزة من متجر نُسُك 🌙", waBlocked:"نُسخ الرابط ✓ — الصقه في متصفحك لفتح واتساب",
   notesLbl:"ملاحظات الطلب (اختياري)", confirmDeliver:"✓ تأكيد التسليم", delivered:"تم التسليم", pendingLbl:"قيد التنفيذ",
@@ -1121,7 +1139,7 @@ en:{dir:"ltr",
   posPinLbl:"Cashier PIN (4-8 digits)", posPinSaved:"Cashier PIN saved ✓", posPinShort:"PIN must be 4-8 digits",
   posPinMissing:"No cashier PIN set yet — set it in admin settings", posLinkNote:"Cashier screen: add #pos to the site link — sales entry only, no access to anything else", posSectionTitle:"Cashier PIN", saleDateLbl:"Sale date", receiptWA:"📤 Send invoice via WhatsApp", receiptPrint:"🖨 Print receipt", receiptTitle:"Nusuk Invoice",
   lastSaleLbl:"Last registered sale", noPhoneForReceipt:"No customer phone for this sale — printing available", thanksReceipt:"Thank you for shopping at Nusuk 🌙",
-  editDateTip:"Edit date", webChannel:"🌐 Website", storeChannel:"🏪 Store", exitPos:"⏻ Exit cashier", focusLbl:"Drag the image to set the visible crop", focusReset:"Reset to center", saveBtn:"Save", confirmPassLbl:"Confirm new password", passMismatch:"Passwords do not match", orderNum:"Order no.", thanksTitle:"Thank you for your order! 🌙", thanksBody:"Your order was sent — we will confirm it with you on WhatsApp shortly.",
+  editDateTip:"Edit date", webChannel:"🌐 Website", storeChannel:"🏪 Store", exitPos:"⏻ Exit cashier", focusLbl:"Drag the image to set the visible crop", focusReset:"Reset to center", focusX:"Left ↔ Right", focusY:"Up ↕ Down", saveBtn:"Save", confirmPassLbl:"Confirm new password", passMismatch:"Passwords do not match", orderNum:"Order no.", thanksTitle:"Thank you for your order! 🌙", thanksBody:"Your order was sent — we will confirm it with you on WhatsApp shortly.",
   passTitle:"Change admin password", curPassLbl:"Current password", newPassLbl:"New password", passChanged:"Password changed ✓",
   shareStore:"📤 Share the store", shareStoreMsg:"Shop unique gifts & religious items from Nusuk Store 🌙", waBlocked:"Link copied ✓ — paste it in your browser to open WhatsApp",
   notesLbl:"Order notes (optional)", confirmDeliver:"✓ Confirm delivery", delivered:"Delivered", pendingLbl:"Pending",
@@ -1202,7 +1220,7 @@ fa:{dir:"rtl",
   posPinLbl:"رمز صندوق (۴-۸ رقم)", posPinSaved:"ذخیره شد ✓", posPinShort:"رمز باید ۴-۸ رقم باشد",
   posPinMissing:"رمز صندوق تعیین نشده — از تنظیمات مدیریت تعیین کنید", posLinkNote:"صفحه صندوق: #pos را به لینک سایت اضافه کنید", posSectionTitle:"رمز صندوق", saleDateLbl:"تاریخ فروش", receiptWA:"📤 ارسال فاکتور واتساپ", receiptPrint:"🖨 چاپ رسید", receiptTitle:"فاکتور نُسُک",
   lastSaleLbl:"آخرین فروش", noPhoneForReceipt:"شماره مشتری ثبت نشده — چاپ ممکن است", thanksReceipt:"از خرید شما متشکریم 🌙",
-  editDateTip:"ویرایش تاریخ", webChannel:"🌐 سایت", storeChannel:"🏪 فروشگاه", exitPos:"⏻ خروج از صندوق", focusLbl:"تصویر را بکشید تا بخش نمایان را تعیین کنید", focusReset:"بازنشانی", saveBtn:"ذخیره", confirmPassLbl:"تکرار رمز جدید", passMismatch:"رمزها یکسان نیستند", orderNum:"شماره سفارش", thanksTitle:"از سفارش شما متشکریم! 🌙", thanksBody:"سفارش ارسال شد — به‌زودی در واتساپ تأیید می‌کنیم.",
+  editDateTip:"ویرایش تاریخ", webChannel:"🌐 سایت", storeChannel:"🏪 فروشگاه", exitPos:"⏻ خروج از صندوق", focusLbl:"تصویر را بکشید تا بخش نمایان را تعیین کنید", focusReset:"بازنشانی", focusX:"چپ ↔ راست", focusY:"بالا ↕ پایین", saveBtn:"ذخیره", confirmPassLbl:"تکرار رمز جدید", passMismatch:"رمزها یکسان نیستند", orderNum:"شماره سفارش", thanksTitle:"از سفارش شما متشکریم! 🌙", thanksBody:"سفارش ارسال شد — به‌زودی در واتساپ تأیید می‌کنیم.",
   passTitle:"تغییر رمز مدیر", curPassLbl:"رمز فعلی", newPassLbl:"رمز جدید", passChanged:"رمز تغییر کرد ✓",
   shareStore:"📤 اشتراک فروشگاه", shareStoreMsg:"از فروشگاه نُسُک هدایای مذهبی ویژه بخرید 🌙", waBlocked:"لینک کپی شد ✓ — در مرورگر بچسبانید",
   notesLbl:"یادداشت سفارش (اختیاری)", confirmDeliver:"✓ تأیید تحویل", delivered:"تحویل شد", pendingLbl:"در انتظار",
@@ -1460,6 +1478,7 @@ function applyLang(){
   set("tInstoreLbl",L.tileInstore); set("admInstoreTitle",L.instoreTitle); set("isRegister",L.registerSale);
   set("isNameLbl",L.name+" "+L.optionalMark); set("isPhoneLbl",L.phone+" "+L.optionalMark); set("isDateLbl",L.saleDateLbl);
   set("focusLblEl",L.focusLbl); set("focusReset",L.focusReset);
+  set("focusXLbl",L.focusX); set("focusYLbl",L.focusY);
   set("lastSaleLblEl",L.lastSaleLbl); set("receiptWABtn",L.receiptWA); set("receiptPrintBtn",L.receiptPrint);
   set("anSrcLbl",L.srcFilterLbl); set("isDiscLblEl",L.isDiscLbl);
   document.getElementById("isSearch").placeholder=L.searchProductsPh; set("anCatLbl",L.catFilterLbl); set("anBack",L.backAdmin);
@@ -1716,13 +1735,22 @@ async function showProduct(p){
     const msg=`${L.shareMsg}:\n${p.name[lang]||p.name.ar} — ${fmt(p.price)}${p.img?"\n"+p.img:""}`;
     openExternal(`https://wa.me/?text=${encodeURIComponent(msg)}`);
   };
+  // الصورة الحالية المعروضة (للتكبير)
+  let pdCurrent = main || "";
   document.querySelectorAll("#prodDetail .gal img").forEach(im=>{
     im.onclick=()=>{
+      pdCurrent = im.dataset.u;
       document.getElementById("pdImg").style.background=`url('${im.dataset.u}') center/cover`;
       document.querySelectorAll("#prodDetail .gal img").forEach(x=>x.classList.remove("on"));
       im.classList.add("on");
     };
   });
+  // الضغط على الصورة الكبيرة يفتحها بالحجم الكامل
+  document.getElementById("pdImg").onclick=()=>{
+    if(!pdCurrent) return;
+    document.getElementById("lbImg").src=pdCurrent;
+    document.getElementById("lightbox").classList.add("open");
+  };
   // منتجات مشابهة من نفس القسم
   const sims=products.filter(x=>x.id!==p.id && x.cat===p.cat).slice(0,6);
   if(sims.length){
@@ -2087,6 +2115,8 @@ function updateFocusBox(){
   wrap.style.display="block";
   box.style.backgroundImage=`url('${src}')`;
   box.style.backgroundPosition=`${imgPos.x}% ${imgPos.y}%`;
+  document.getElementById("focusXSlider").value=imgPos.x;
+  document.getElementById("focusYSlider").value=imgPos.y;
 }
 (function initFocusDrag(){
   const box=document.getElementById("focusBox");
@@ -2106,6 +2136,14 @@ function updateFocusBox(){
   window.addEventListener("mousemove",move); window.addEventListener("touchmove",move,{passive:false});
   window.addEventListener("mouseup",end); window.addEventListener("touchend",end);
   document.getElementById("focusReset").onclick=()=>{imgPos={x:50,y:50};updateFocusBox();};
+  document.getElementById("focusXSlider").addEventListener("input",e=>{
+    imgPos.x=+e.target.value;
+    box.style.backgroundPosition=`${imgPos.x}% ${imgPos.y}%`;
+  });
+  document.getElementById("focusYSlider").addEventListener("input",e=>{
+    imgPos.y=+e.target.value;
+    box.style.backgroundPosition=`${imgPos.x}% ${imgPos.y}%`;
+  });
   document.getElementById("pImg").addEventListener("input",updateFocusBox);
 })();
 async function saveProduct(){
@@ -3265,6 +3303,7 @@ toTopBtn.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
   const el=document.getElementById(id);
   el.addEventListener("input",()=>{const v=normPhone(el.value); if(el.value!==v) el.value=v;});
 });
+document.getElementById("lightbox").onclick=()=>document.getElementById("lightbox").classList.remove("open");
 document.getElementById("waOrder").onclick=sendWhatsApp;
 document.getElementById("couponApply").onclick=applyCoupon;
 document.getElementById("couponInput").addEventListener("keydown",e=>{if(e.key==="Enter")applyCoupon();});
