@@ -653,6 +653,7 @@ footer a:hover{color:var(--gold2)}
         <div class="field"><label id="lblDesc"></label><textarea id="pDesc" rows="3"></textarea></div>
         <div class="field"><label id="lblMaterial"></label><input id="pMaterial"></div>
         <div class="field"><label id="lblSize"></label><input id="pSize"></div>
+        <div class="field"><label id="lblVariants"></label><input id="pVariants" placeholder="أحمر, أخضر, أسود"></div>
         <div class="field"><label id="lblImgs"></label><textarea id="pImgs" rows="2" dir="ltr" placeholder="https://..."></textarea>
           <label class="upload-btn"><input type="file" id="pImgsFile" accept="image/*" multiple hidden><span id="uploadExtraLbl"></span> 📤</label>
           <div class="imgprev" id="extraPrev"></div>
@@ -1058,7 +1059,7 @@ ar:{dir:"rtl",
   posPinLbl:"رمز الكاشير PIN (4-8 أرقام)", posPinSaved:"حُفظ رمز الكاشير ✓", posPinShort:"الرمز يجب أن يكون 4-8 أرقام",
   posPinMissing:"لم يُحدَّد رمز كاشير بعد — حدده من إعدادات الإدارة", posLinkNote:"شاشة الكاشير: أضف #pos إلى نهاية رابط الموقع وشاركه مع من يعمل على الكاشير — يسجل المبيعات فقط دون الوصول لأي شيء آخر", posSectionTitle:"رمز الكاشير", saleDateLbl:"تاريخ البيع", receiptWA:"📤 إرسال الفاتورة واتساب", receiptPrint:"🖨 طباعة الإيصال", receiptTitle:"فاتورة نُسُك",
   lastSaleLbl:"آخر بيع مسجَّل", noPhoneForReceipt:"لا يوجد رقم زبون لهذا البيع — الطباعة متاحة", thanksReceipt:"شكراً لتسوقكم من نُسُك 🌙",
-  editDateTip:"تعديل التاريخ", webChannel:"🌐 الموقع", storeChannel:"🏪 المحل", exitPos:"⏻ خروج من الكاشير", focusLbl:"اسحب الصورة لتحديد الجزء الظاهر على البطاقة", focusReset:"إعادة للوسط", focusX:"يميناً ← يساراً", focusY:"أعلى ↕ أسفل", saveBtn:"حفظ", confirmPassLbl:"تأكيد كلمة المرور الجديدة", passMismatch:"كلمتا المرور غير متطابقتين", orderNum:"رقم الطلب", thanksTitle:"شكراً لطلبكم! 🌙", thanksBody:"تم إرسال طلبكم — سنؤكده معكم قريباً عبر واتساب.",
+  editDateTip:"تعديل التاريخ", webChannel:"🌐 الموقع", storeChannel:"🏪 المحل", exitPos:"⏻ خروج من الكاشير", focusLbl:"اسحب الصورة لتحديد الجزء الظاهر على البطاقة", focusReset:"إعادة للوسط", focusX:"يميناً ← يساراً", focusY:"أعلى ↕ أسفل", variantsLbl:"الألوان / الخيارات المتوفرة (افصل بينها بفاصلة)", pickVariant:"اختر اللون أو الخيار أولاً", variantTitle:"الخيارات المتوفرة", saveBtn:"حفظ", confirmPassLbl:"تأكيد كلمة المرور الجديدة", passMismatch:"كلمتا المرور غير متطابقتين", orderNum:"رقم الطلب", thanksTitle:"شكراً لطلبكم! 🌙", thanksBody:"تم إرسال طلبكم — سنؤكده معكم قريباً عبر واتساب.",
   passTitle:"تغيير كلمة مرور الإدارة", curPassLbl:"كلمة المرور الحالية", newPassLbl:"كلمة المرور الجديدة", passChanged:"تم تغيير كلمة المرور ✓",
   shareStore:"📤 شارك المتجر", shareStoreMsg:"تسوقوا هدايا ودينيات مميزة من متجر نُسُك 🌙", waBlocked:"نُسخ الرابط ✓ — الصقه في متصفحك لفتح واتساب",
   notesLbl:"ملاحظات الطلب (اختياري)", confirmDeliver:"✓ تأكيد التسليم", delivered:"تم التسليم", pendingLbl:"قيد التنفيذ",
@@ -1139,7 +1140,7 @@ en:{dir:"ltr",
   posPinLbl:"Cashier PIN (4-8 digits)", posPinSaved:"Cashier PIN saved ✓", posPinShort:"PIN must be 4-8 digits",
   posPinMissing:"No cashier PIN set yet — set it in admin settings", posLinkNote:"Cashier screen: add #pos to the site link — sales entry only, no access to anything else", posSectionTitle:"Cashier PIN", saleDateLbl:"Sale date", receiptWA:"📤 Send invoice via WhatsApp", receiptPrint:"🖨 Print receipt", receiptTitle:"Nusuk Invoice",
   lastSaleLbl:"Last registered sale", noPhoneForReceipt:"No customer phone for this sale — printing available", thanksReceipt:"Thank you for shopping at Nusuk 🌙",
-  editDateTip:"Edit date", webChannel:"🌐 Website", storeChannel:"🏪 Store", exitPos:"⏻ Exit cashier", focusLbl:"Drag the image to set the visible crop", focusReset:"Reset to center", focusX:"Left ↔ Right", focusY:"Up ↕ Down", saveBtn:"Save", confirmPassLbl:"Confirm new password", passMismatch:"Passwords do not match", orderNum:"Order no.", thanksTitle:"Thank you for your order! 🌙", thanksBody:"Your order was sent — we will confirm it with you on WhatsApp shortly.",
+  editDateTip:"Edit date", webChannel:"🌐 Website", storeChannel:"🏪 Store", exitPos:"⏻ Exit cashier", focusLbl:"Drag the image to set the visible crop", focusReset:"Reset to center", focusX:"Left ↔ Right", focusY:"Up ↕ Down", variantsLbl:"Available colors / options (comma separated)", pickVariant:"Please pick a color/option first", variantTitle:"Available options", saveBtn:"Save", confirmPassLbl:"Confirm new password", passMismatch:"Passwords do not match", orderNum:"Order no.", thanksTitle:"Thank you for your order! 🌙", thanksBody:"Your order was sent — we will confirm it with you on WhatsApp shortly.",
   passTitle:"Change admin password", curPassLbl:"Current password", newPassLbl:"New password", passChanged:"Password changed ✓",
   shareStore:"📤 Share the store", shareStoreMsg:"Shop unique gifts & religious items from Nusuk Store 🌙", waBlocked:"Link copied ✓ — paste it in your browser to open WhatsApp",
   notesLbl:"Order notes (optional)", confirmDeliver:"✓ Confirm delivery", delivered:"Delivered", pendingLbl:"Pending",
@@ -1220,7 +1221,7 @@ fa:{dir:"rtl",
   posPinLbl:"رمز صندوق (۴-۸ رقم)", posPinSaved:"ذخیره شد ✓", posPinShort:"رمز باید ۴-۸ رقم باشد",
   posPinMissing:"رمز صندوق تعیین نشده — از تنظیمات مدیریت تعیین کنید", posLinkNote:"صفحه صندوق: #pos را به لینک سایت اضافه کنید", posSectionTitle:"رمز صندوق", saleDateLbl:"تاریخ فروش", receiptWA:"📤 ارسال فاکتور واتساپ", receiptPrint:"🖨 چاپ رسید", receiptTitle:"فاکتور نُسُک",
   lastSaleLbl:"آخرین فروش", noPhoneForReceipt:"شماره مشتری ثبت نشده — چاپ ممکن است", thanksReceipt:"از خرید شما متشکریم 🌙",
-  editDateTip:"ویرایش تاریخ", webChannel:"🌐 سایت", storeChannel:"🏪 فروشگاه", exitPos:"⏻ خروج از صندوق", focusLbl:"تصویر را بکشید تا بخش نمایان را تعیین کنید", focusReset:"بازنشانی", focusX:"چپ ↔ راست", focusY:"بالا ↕ پایین", saveBtn:"ذخیره", confirmPassLbl:"تکرار رمز جدید", passMismatch:"رمزها یکسان نیستند", orderNum:"شماره سفارش", thanksTitle:"از سفارش شما متشکریم! 🌙", thanksBody:"سفارش ارسال شد — به‌زودی در واتساپ تأیید می‌کنیم.",
+  editDateTip:"ویرایش تاریخ", webChannel:"🌐 سایت", storeChannel:"🏪 فروشگاه", exitPos:"⏻ خروج از صندوق", focusLbl:"تصویر را بکشید تا بخش نمایان را تعیین کنید", focusReset:"بازنشانی", focusX:"چپ ↔ راست", focusY:"بالا ↕ پایین", variantsLbl:"رنگ‌ها / گزینه‌ها (با کاما جدا کنید)", pickVariant:"ابتدا رنگ را انتخاب کنید", variantTitle:"گزینه‌ها", saveBtn:"ذخیره", confirmPassLbl:"تکرار رمز جدید", passMismatch:"رمزها یکسان نیستند", orderNum:"شماره سفارش", thanksTitle:"از سفارش شما متشکریم! 🌙", thanksBody:"سفارش ارسال شد — به‌زودی در واتساپ تأیید می‌کنیم.",
   passTitle:"تغییر رمز مدیر", curPassLbl:"رمز فعلی", newPassLbl:"رمز جدید", passChanged:"رمز تغییر کرد ✓",
   shareStore:"📤 اشتراک فروشگاه", shareStoreMsg:"از فروشگاه نُسُک هدایای مذهبی ویژه بخرید 🌙", waBlocked:"لینک کپی شد ✓ — در مرورگر بچسبانید",
   notesLbl:"یادداشت سفارش (اختیاری)", confirmDeliver:"✓ تأیید تحویل", delivered:"تحویل شد", pendingLbl:"در انتظار",
@@ -1332,11 +1333,13 @@ const M = {
     price:p.price, old_price:p.oldPrice||0, cat:p.cat, sub:p.sub||null, img:p.img||"", imgs:p.imgs||[],
     material:p.material||"", size:p.size||"", is_new:!!p.isNew, best:!!p.best, soldout:!!p.soldout,
     img_pos:(p.pos&&(p.pos.x!==50||p.pos.y!==50))?`${p.pos.x} ${p.pos.y}`:null,
+    variants:p.variants||[],
     descr_ar:(p.desc&&p.desc.ar)||"", descr_en:(p.desc&&p.desc.en)||"", descr_fa:(p.desc&&p.desc.fa)||""}),
   rowProduct: r => ({id:r.id, name:{ar:r.name_ar,en:r.name_en,fa:r.name_fa}, price:+r.price, oldPrice:+r.old_price||0,
     cat:r.cat, sub:r.sub||null, img:r.img||"", imgs:r.imgs||[], material:r.material||"", size:r.size||"",
     isNew:!!r.is_new, best:!!r.best, soldout:!!r.soldout,
     pos:(r.img_pos?{x:+r.img_pos.split(" ")[0],y:+r.img_pos.split(" ")[1]}:null),
+    variants:r.variants||[],
     desc:{ar:r.descr_ar,en:r.descr_en,fa:r.descr_fa}}),
   catRow: c => ({id:c.id, icon:c.icon||"boxes", name_ar:c.name.ar, name_en:c.name.en||c.name.ar, name_fa:c.name.fa||c.name.ar}),
   rowCat: r => ({id:r.id, icon:r.icon, name:{ar:r.name_ar,en:r.name_en,fa:r.name_fa}}),
@@ -1462,7 +1465,7 @@ function applyLang(){
   set("fStore",L.store); set("fAbout",(aboutLine&&(aboutLine[lang]||aboutLine.ar))||L.about); set("fContact",L.contact); set("fLoc",L.location); set("fAddr",L.addr); set("fCopy",L.rights);
   set("shopEmpty",L.noResults); set("favEmpty",L.noFavs);
   set("bestTitle",L.best);
-  set("lblMaterial",L.material); set("lblSize",L.sizeLbl); set("lblOldPrice",L.oldPriceLbl); set("saleTitle",L.saleTitle); set("lblImgs",L.imgsLbl); set("lblFlags",L.flags);
+  set("lblMaterial",L.material); set("lblSize",L.sizeLbl); set("lblVariants",L.variantsLbl); set("lblOldPrice",L.oldPriceLbl); set("saleTitle",L.saleTitle); set("lblImgs",L.imgsLbl); set("lblFlags",L.flags);
   set("chkNewLbl",L.chkNew); set("chkBestLbl",L.chkBest); set("chkSoldLbl",L.chkSold);
   set("couponLbl",L.coupon); set("couponApply",L.applyCoupon);
   set("couponMsgOk",L.couponOk); set("couponMsgErr",L.couponBad);
@@ -1611,7 +1614,11 @@ function productCard(p){
       <button class="add" ${p.soldout?"disabled":""}>${p.soldout?L.soldout:L.detailsBtn}</button>
     </div>`;
   card.querySelector(".fav").onclick=e=>{e.stopPropagation();toggleFav(p.id);};
-  if(!p.soldout) card.querySelector(".add").onclick=e=>{e.stopPropagation();addToCart(p.id);};
+  if(!p.soldout) card.querySelector(".add").onclick=e=>{
+    e.stopPropagation();
+    if(p.variants&&p.variants.length){showProduct(p);return;}  // يجب اختيار اللون أولاً
+    addToCart(p.id);
+  };
   card.querySelector(".bd .nm").onclick=()=>showProduct(p);
   card.querySelector(".ph").onclick=()=>showProduct(p);
   return card;
@@ -1707,6 +1714,7 @@ async function showProduct(p){
     ${p.material?`<p class="muted" style="margin-bottom:4px">◦ ${L.material}: ${p.material}</p>`:""}
     ${p.size?`<p class="muted" style="margin-bottom:6px">◦ ${L.sizeLbl}: ${p.size}</p>`:""}
     <p class="num" style="color:var(--green);font-weight:700;font-size:20px;margin-bottom:12px">${fmt(p.price)}${(p.oldPrice&&p.oldPrice>p.price)?`<span class="oldpr num" style="font-size:15px">${fmt(p.oldPrice)}</span>`:""}</p>
+    ${(p.variants&&p.variants.length)?`<p style="font-size:13.5px;font-weight:700;color:var(--green);margin-bottom:6px">${L.variantTitle}</p><div class="filters" id="pdVariants" style="margin-bottom:12px">${p.variants.map(v=>`<button class="chip" data-v="${v}">${v}</button>`).join("")}</div>`:""}
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
       <button class="btn" id="pdAdd" ${p.soldout?"disabled":""}>${p.soldout?L.soldout:L.detailsBtn}</button>
       ${p.soldout?`<button class="btn ghost" id="pdNotify">${L.notifyMe}</button>`:""}
@@ -1722,7 +1730,16 @@ async function showProduct(p){
       <div class="field"><textarea id="revText" rows="2"></textarea></div>
       <button class="btn" id="revSend" style="padding:8px 18px;font-size:14px">${L.sendBtn}</button>
     </div>`;
-  if(!p.soldout) document.getElementById("pdAdd").onclick=()=>{addToCart(p.id);closeOverlay("prodOverlay");};
+  let pdVariant=null;
+  const vbox=document.getElementById("pdVariants");
+  if(vbox) vbox.querySelectorAll(".chip").forEach(ch=>ch.onclick=()=>{
+    pdVariant=ch.dataset.v;
+    vbox.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===ch));
+  });
+  if(!p.soldout) document.getElementById("pdAdd").onclick=()=>{
+    if(p.variants&&p.variants.length&&!pdVariant){toast(L.pickVariant);return;}
+    addToCart(p.id,pdVariant);closeOverlay("prodOverlay");
+  };
   const nb=document.getElementById("pdNotify");
   if(nb) nb.onclick=async()=>{
     if(!member){toast(L.needLogin);return;}
@@ -1821,9 +1838,10 @@ function toggleFav(id){
   if(document.getElementById("page-shop").classList.contains("active")) renderShop(currentCat);
   if(document.getElementById("page-fav").classList.contains("active")) renderFavs();
 }
-function addToCart(id){
-  const it=cart.find(c=>c.id===id);
-  if(it) it.qty++; else cart.push({id,qty:1});
+function addToCart(id, v){
+  v=v||null;
+  const it=cart.find(c=>c.id===id && (c.v||null)===v);
+  if(it) it.qty++; else cart.push({id,qty:1,v});
   toast(t().added); updateBadges(); saveCart();
 }
 function updateBadges(){
@@ -1854,7 +1872,7 @@ function renderCart(){
     const d=document.createElement("div"); d.className="cart-item";
     d.innerHTML=`
       <div class="th" ${p.img?`style="background-image:url('${p.img}')"`:""}></div>
-      <div style="flex:1"><div>${p.name[lang]||p.name.ar}</div><div class="muted num">${fmt(p.price)}</div></div>
+      <div style="flex:1"><div>${p.name[lang]||p.name.ar}${c.v?` — <b style="color:var(--green)">${c.v}</b>`:""}</div><div class="muted num">${fmt(p.price)}</div></div>
       <div class="qty"><button>−</button><span class="num">${c.qty}</span><button>+</button></div>`;
     const [minus,plus]=d.querySelectorAll(".qty button");
     minus.onclick=()=>{c.qty--; if(c.qty<=0)cart=cart.filter(x=>x!==c); renderCart(); updateBadges(); saveCart();};
@@ -1917,7 +1935,7 @@ async function sendWhatsApp(){
     const p=products.find(x=>x.id===c.id); if(!p)return;
     const unit=effectiveUnit(p);
     total+=unit*c.qty;
-    msg+=`• ${p.name[lang]||p.name.ar} ×${c.qty} — ${fmt(unit*c.qty)}\n`;
+    msg+=`• ${p.name[lang]||p.name.ar}${c.v?` (${c.v})`:""} ×${c.qty} — ${fmt(unit*c.qty)}\n`;
   });
   if(appliedCoupon && coupons[appliedCoupon]) msg+=`\n${L.discount}: ${appliedCoupon}`;
   msg+=`\n${L.total}: ${fmt(total)}`;
@@ -1944,7 +1962,7 @@ async function logOrder(num,name,phone,addr,notes,total,disc){
       num,
       d:Date.now(), n:name||"—", p:phone||"—", a:addr||"—", notes:notes||"", total, disc:disc||0,
       coupon:appliedCoupon||null,
-      items:cart.map(c=>{const p=products.find(x=>x.id===c.id);return p?{id:p.id,n:p.name.ar,q:c.qty,u:effectiveUnit(p),cat:p.cat,sub:p.sub||null}:null;}).filter(Boolean)
+      items:cart.map(c=>{const p=products.find(x=>x.id===c.id);return p?{id:p.id,n:p.name.ar,q:c.qty,u:effectiveUnit(p),cat:p.cat,sub:p.sub||null,v:c.v||null}:null;}).filter(Boolean)
     });
     await sSet("orders",orders.slice(-300),true);
   }catch(e){}
@@ -2000,7 +2018,7 @@ async function renderBuyers(){
     const spend=mine.reduce((s,o)=>s+(o.total||0),0);
     d.innerHTML=`<div class="oh" style="cursor:pointer"><span>${u.name}</span><span style="display:flex;gap:8px;align-items:center"><span class="num">${phone}</span><button class="wa-mini bw-btn" aria-label="whatsapp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.5 14.1c-.2.7-1.3 1.3-1.8 1.3-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.1.2-.3.3-.1.6.2.3.8 1.4 1.8 2.2 1.3 1.1 2.3 1.5 2.6 1.6.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3 0 .1 0 .8-.2 1.5z"/></svg></button></span></div>
       <div class="muted">${L.regDate}: <span class="num">${date}</span> — ${L.buyerOrdersLbl}: <span class="num">${mine.length}</span> — ${L.totalSpendLbl}: <span class="num">${fmt(spend)}</span></div>
-      <div class="buyer-orders">${mine.length?mine.slice().reverse().map(o=>`<div>${o.num?`<span class="num">#${o.num}</span> — `:""}${o.items.map(i=>`${i.n} ×${i.q}`).join("، ")} — <span class="num">${fmt(o.total)}</span></div>`).join(""):L.noOrders}</div>`;
+      <div class="buyer-orders">${mine.length?mine.slice().reverse().map(o=>`<div>${o.num?`<span class="num">#${o.num}</span> — `:""}${o.items.map(i=>`${i.n}${i.v?` (${i.v})`:""} ×${i.q}`).join("، ")} — <span class="num">${fmt(o.total)}</span></div>`).join(""):L.noOrders}</div>`;
     d.querySelector(".bw-btn").onclick=e=>{e.stopPropagation();openExternal("https://wa.me/"+phone.replace(/[^0-9]/g,""));};
     d.querySelector(".oh").onclick=()=>d.querySelector(".buyer-orders").classList.toggle("open");
     box.appendChild(d);
@@ -2159,7 +2177,9 @@ async function saveProduct(){
   const urlImgs=document.getElementById("pImgs").value.split("\n").map(s=>s.trim()).filter(Boolean);
   const finalImg = mainImgData || img;
   const finalImgs = [...extraImgsData, ...urlImgs];
+  const variants=document.getElementById("pVariants").value.split(/[،,]/).map(s=>s.trim()).filter(Boolean);
   const obj={
+    variants,
     pos:{x:Math.round(imgPos.x), y:Math.round(imgPos.y)},
     id:editingId||Date.now(), cat, sub, price,
     oldPrice:parseFloat(document.getElementById("pOldPrice").value)||0,
@@ -2208,6 +2228,7 @@ function editProduct(id){
   if((p.img||"").startsWith("data:")){ mainImgData=p.img; document.getElementById("pImg").value=""; }
   else { mainImgData=""; }
   imgPos = p.pos ? {x:p.pos.x, y:p.pos.y} : {x:50, y:50};
+  document.getElementById("pVariants").value=(p.variants||[]).join("، ");
   renderImgPreviews();
   document.getElementById("pNew").checked=!!p.isNew;
   document.getElementById("pBest").checked=!!p.best;
@@ -2478,8 +2499,9 @@ function renderInstore(){
       const d=document.createElement("div"); d.className="is-res";
       d.innerHTML=`<span>${p.name.ar} — <span class="num">${fmt(p.price)}</span></span><button>+</button>`;
       d.querySelector("button").onclick=()=>{
-        const ex=isCart.find(c=>c.id===p.id);
-        if(ex) ex.qty++; else isCart.push({id:p.id,qty:1,u:p.price});
+        const v=(p.variants&&p.variants.length)?p.variants[0]:null;
+        const ex=isCart.find(c=>c.id===p.id&&(c.v||null)===v);
+        if(ex) ex.qty++; else isCart.push({id:p.id,qty:1,u:p.price,v});
         document.getElementById("isSearch").value=""; renderInstore();
       };
       res.appendChild(d);
@@ -2492,7 +2514,8 @@ function renderInstore(){
     const p=products.find(x=>x.id===c.id); if(!p)return;
     total+=c.u*c.qty;
     const d=document.createElement("div"); d.className="is-line";
-    d.innerHTML=`<span class="nm2">${p.name.ar}</span>
+    const vSel=(p.variants&&p.variants.length)?`<select class="vsel" style="padding:5px;border:1px solid var(--line);border-radius:6px;font-size:12.5px">${p.variants.map(v=>`<option ${v===c.v?"selected":""}>${v}</option>`).join("")}</select>`:"";
+    d.innerHTML=`<span class="nm2">${p.name.ar}</span>${vSel}
       <span class="qty2"><button>−</button><span class="num">${c.qty}</span><button>+</button></span>
       <label style="font-size:11.5px;color:#77816f">${L.unitPriceLbl}</label>
       <input class="up num" type="number" min="0" step="0.01" value="${c.u}" dir="ltr">
@@ -2502,6 +2525,8 @@ function renderInstore(){
     minus.onclick=()=>{c.qty--; if(c.qty<=0)isCart.splice(idx,1); renderInstore();};
     plus.onclick=()=>{c.qty++; renderInstore();};
     d.querySelector(".up").onchange=e=>{c.u=Math.max(0,parseFloat(e.target.value)||0); renderInstore();};
+    const vs=d.querySelector(".vsel");
+    if(vs) vs.onchange=e=>{c.v=e.target.value;};
     d.querySelector(".rm2").onclick=()=>{isCart.splice(idx,1); renderInstore();};
     box.appendChild(d);
   });
@@ -2528,7 +2553,7 @@ async function registerInstoreSale(){
   const L=t();
   if(!isCart.length){toast(L.emptySale);return;}
   const num=await nextOrderNum();
-  const items=isCart.map(c=>{const p=products.find(x=>x.id===c.id);return {id:p.id,n:p.name.ar,q:c.qty,u:c.u,cat:p.cat,sub:p.sub||null};});
+  const items=isCart.map(c=>{const p=products.find(x=>x.id===c.id);return {id:p.id,n:p.name.ar,q:c.qty,u:c.u,cat:p.cat,sub:p.sub||null,v:c.v||null};});
   const gross=isGross();
   const disc=isDiscValue();
   const total=gross-disc;
@@ -2559,7 +2584,7 @@ function receiptText(o){
   const L=t();
   let msg=`${L.receiptTitle} — #${o.num}\n${new Date(o.d).toLocaleDateString("en-GB")}\n`;
   msg+="—————————————\n";
-  o.items.forEach(i=>msg+=`${i.n} ×${i.q} — ${fmt(i.u*i.q)}\n`);
+  o.items.forEach(i=>msg+=`${i.n}${i.v?` (${i.v})`:""} ×${i.q} — ${fmt(i.u*i.q)}\n`);
   msg+="—————————————\n";
   if(o.disc>0) msg+=`${L.discount}: -${fmt(o.disc)}\n`;
   msg+=`${L.total}: ${fmt(o.total)}\n\n${L.thanksReceipt}`;
@@ -2579,7 +2604,7 @@ function printReceipt(){
     <h2 style="margin-bottom:2px">نُسُك</h2>
     <p style="font-size:12px;margin-bottom:10px">${L.receiptTitle} — #${lastSale.num}<br>${new Date(lastSale.d).toLocaleString("en-GB")}</p>
     <hr>
-    <table style="width:100%;font-size:13px;text-align:start">${lastSale.items.map(i=>`<tr><td>${i.n} ×${i.q}</td><td style="text-align:end">${fmt(i.u*i.q)}</td></tr>`).join("")}</table>
+    <table style="width:100%;font-size:13px;text-align:start">${lastSale.items.map(i=>`<tr><td>${i.n}${i.v?` (${i.v})`:""} ×${i.q}</td><td style="text-align:end">${fmt(i.u*i.q)}</td></tr>`).join("")}</table>
     <hr>
     ${lastSale.disc>0?`<p style="font-size:13px">${L.discount}: -${fmt(lastSale.disc)}</p>`:""}
     <p style="font-weight:700;font-size:15px">${L.total}: ${fmt(lastSale.total)}</p>
@@ -2786,7 +2811,7 @@ async function renderOrders(){
     const status=o.c?`<span style="color:var(--red)">✗ ${L.cancelledLbl}</span>`:(o.s?`<span style="color:#2c6b2f">✓ ${L.delivered}</span>`:`<span style="color:#a5802a">⏳ ${L.pendingLbl}</span>`);
     const srcTag=o.src==="store"?` <span class="src-tag">${L.storeTag}</span>`:"";
     d.innerHTML=`<div class="oh"><span>${o.num?`<span class="num">#${o.num}</span> — `:""}${o.n}${o.p&&o.p!=="—"?` — <span class="num">${o.p}</span>`:""}</span><span style="display:flex;gap:6px;align-items:center"><span class="num">${date}</span><input type="date" class="od-date num" value="${new Date(o.d).toISOString().slice(0,10)}" style="border:1px solid var(--line);border-radius:6px;padding:2px 4px;font-size:11.5px;width:118px" title=""></span></div>
-      <div>${o.items.map(i=>`${i.n} ×${i.q}`).join("، ")}</div>
+      <div>${o.items.map(i=>`${i.n}${i.v?` (${i.v})`:""} ×${i.q}`).join("، ")}</div>
       <div style="margin-top:4px;color:var(--green);font-weight:700">${L.orderTotal}: <span class="num">${fmt(o.total)}</span>${o.coupon?` <span class="num" style="font-weight:400">(${o.coupon})</span>`:""}${o.disc?` <span class="num" style="font-weight:400;font-size:12px;color:#a5802a">(-${fmt(o.disc)})</span>`:""} — ${status}${srcTag}</div>
       <div class="muted">${o.a}${o.notes?` — 📝 ${o.notes}`:""}</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
@@ -3171,7 +3196,7 @@ async function exportAnalyticsXlsx(){
     [L.ordersCount, list.length],[L.revenue, revenue.toFixed(2)],
     [L.avgOrder, list.length?(revenue/list.length).toFixed(2):0],[L.itemsSold, items]];
   const orders=[[L.orderNum,L.colDate,L.colBuyer,L.colPhone,L.colAddr,L.colItems,L.colCoupon,L.colTotal]];
-  list.forEach(o=>orders.push([o.num?"#"+o.num:"", fdate(o.d), o.n, o.p||"", o.a, o.items.map(i=>`${i.n} ×${i.q}`).join("، "), o.coupon||"", (o.total||0).toFixed(2)]));
+  list.forEach(o=>orders.push([o.num?"#"+o.num:"", fdate(o.d), o.n, o.p||"", o.a, o.items.map(i=>`${i.n}${i.v?` (${i.v})`:""} ×${i.q}`).join("، "), o.coupon||"", (o.total||0).toFixed(2)]));
   const counts={};
   list.forEach(o=>o.items.forEach(i=>counts[i.n]=(counts[i.n]||0)+i.q));
   const top=[[L.topProducts,""]];
@@ -3197,7 +3222,7 @@ async function exportAnalyticsPdf(){
   const chartImg=cv.style.display!=="none"?`<img src="${cv.toDataURL("image/png")}">`:"";
   let rows="";
   list.slice().reverse().forEach(o=>{
-    rows+=`<tr><td class="num">${fdate(o.d)}</td><td>${o.n}</td><td>${o.a}</td><td>${o.items.map(i=>`${i.n} ×${i.q}`).join("، ")}</td><td class="num">${fmt(o.total||0)}</td></tr>`;
+    rows+=`<tr><td class="num">${fdate(o.d)}</td><td>${o.n}</td><td>${o.a}</td><td>${o.items.map(i=>`${i.n}${i.v?` (${i.v})`:""} ×${i.q}`).join("، ")}</td><td class="num">${fmt(o.total||0)}</td></tr>`;
   });
   document.getElementById("printReport").innerHTML=`
     <h1>${L.reportTitle}</h1>
