@@ -372,7 +372,14 @@ footer a:hover{color:var(--gold2)}
 #lightbox{position:fixed;inset:0;background:rgba(10,20,15,.93);z-index:600;display:none;align-items:center;justify-content:center;padding:20px}
 #lightbox.open{display:flex}
 #lightbox img{max-width:96vw;max-height:90vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-#lbClose{position:absolute;top:16px;inset-inline-end:16px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:19px;display:grid;place-items:center}
+#lbClose{position:absolute;top:16px;inset-inline-end:16px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:19px;display:grid;place-items:center;z-index:2}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;display:grid;place-items:center;z-index:2}
+.lb-nav:active{background:rgba(255,255,255,.3)}
+#lbPrev{inset-inline-start:12px}
+#lbNext{inset-inline-end:12px}
+#lbDots{position:absolute;bottom:22px;left:0;right:0;display:flex;gap:8px;justify-content:center}
+#lbDots span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.35)}
+#lbDots span.on{background:var(--gold)}
 #pdImg{cursor:zoom-in}
 
 /* toast */
@@ -534,6 +541,7 @@ footer a:hover{color:var(--gold2)}
     <div id="adminPanel" style="display:none">
 
       <!-- إحصاءات سريعة وخروج -->
+      <p class="muted num" id="verTag" style="font-size:11px;margin-bottom:6px"></p>
       <div class="qstats" id="qStats">
         <div class="qs"><b class="num" id="qsToday">0</b><span id="qsTodayLbl"></span></div>
         <div class="qs"><b class="num" id="qsMonth">$0</b><span id="qsMonthLbl"></span></div>
@@ -959,7 +967,10 @@ footer a:hover{color:var(--gold2)}
 
 <div id="lightbox">
   <button id="lbClose" aria-label="close">✕</button>
+  <button class="lb-nav" id="lbPrev" aria-label="prev"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
   <img id="lbImg" alt="">
+  <button class="lb-nav" id="lbNext" aria-label="next"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+  <div id="lbDots"></div>
 </div>
 
 <div id="printReport"></div>
@@ -1296,6 +1307,7 @@ const CLOUD = /^https:\/\//.test(SB_URL) && SUPABASE_KEY.length > 25;  // يقب
 const HAS_CLAUDE = typeof window.storage !== "undefined" && window.storage && window.storage.get;
 const PERSONAL_KEYS = new Set(["favs","member","cart","lang","view"]); // بيانات الجهاز فقط
 const posMode = (location.hash === "#pos");   // وضع شاشة الكاشير
+const APP_VERSION = "v9-عارض-الصور";        // يتغير مع كل نسخة
 
 async function sbFetch(path, opts={}){
   const r = await fetch(SB_URL + "/rest/v1/" + path, {
@@ -1537,6 +1549,7 @@ function applyLang(){
   set("thanksTitleEl",L.thanksTitle); set("thanksBodyEl",L.thanksBody); set("thanksNumLbl",L.orderNum);
   set("shareStoreTxt",L.shareStore);
   set("trust1El",L.trust1); set("trust2El",L.trust2); set("trust3El",L.trust3);
+  document.getElementById("verTag").textContent=APP_VERSION;
   set("qsTodayLbl",L.quickToday); set("qsMonthLbl",L.quickMonth); set("qsProductsLbl",L.quickProducts);
   set("adminLogout",L.logoutAdmin);
   document.getElementById("oSearch").placeholder=L.searchOrdersPh;
@@ -1792,11 +1805,11 @@ async function showProduct(p){
       im.classList.add("on");
     };
   });
-  // الضغط على الصورة الكبيرة يفتحها بالحجم الكامل
+  // الضغط على الصورة الكبيرة يفتح العارض المكبر بكل صور المنتج
+  const allImgs=[main, ...(p.imgs||[])].filter(Boolean);
   document.getElementById("pdImg").onclick=()=>{
-    if(!pdCurrent) return;
-    document.getElementById("lbImg").src=pdCurrent;
-    document.getElementById("lightbox").classList.add("open");
+    if(!allImgs.length) return;
+    openLightbox(allImgs, Math.max(0, allImgs.indexOf(pdCurrent)));
   };
   // منتجات مشابهة من نفس القسم
   const sims=products.filter(x=>x.id!==p.id && x.cat===p.cat).slice(0,6);
@@ -3359,7 +3372,40 @@ toTopBtn.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
   const el=document.getElementById(id);
   el.addEventListener("input",()=>{const v=normPhone(el.value); if(el.value!==v) el.value=v;});
 });
+/* ---------- عارض الصور المكبر مع التنقل ---------- */
+let lbImgs=[], lbIdx=0;
+function openLightbox(imgs, idx){
+  lbImgs=imgs; lbIdx=idx||0;
+  lbShow();
+  document.getElementById("lightbox").classList.add("open");
+}
+function lbShow(){
+  document.getElementById("lbImg").src=lbImgs[lbIdx];
+  const multi=lbImgs.length>1;
+  document.getElementById("lbPrev").style.display=multi?"grid":"none";
+  document.getElementById("lbNext").style.display=multi?"grid":"none";
+  const dots=document.getElementById("lbDots"); dots.innerHTML="";
+  if(multi) lbImgs.forEach((_,i)=>{
+    const s=document.createElement("span"); if(i===lbIdx) s.className="on"; dots.appendChild(s);
+  });
+}
+function lbMove(dir){ lbIdx=(lbIdx+dir+lbImgs.length)%lbImgs.length; lbShow(); }
+document.getElementById("lbPrev").onclick=e=>{e.stopPropagation();lbMove(-1);};
+document.getElementById("lbNext").onclick=e=>{e.stopPropagation();lbMove(1);};
+document.getElementById("lbImg").onclick=e=>e.stopPropagation();
 document.getElementById("lightbox").onclick=()=>document.getElementById("lightbox").classList.remove("open");
+// سحب باللمس للتنقل بين الصور
+(function(){
+  let tx=null;
+  const lb=document.getElementById("lightbox");
+  lb.addEventListener("touchstart",e=>{tx=e.touches[0].clientX;},{passive:true});
+  lb.addEventListener("touchend",e=>{
+    if(tx===null||lbImgs.length<2) return;
+    const dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>45) lbMove(dx<0 ? 1 : -1);
+    tx=null;
+  },{passive:true});
+})();
 document.getElementById("waOrder").onclick=sendWhatsApp;
 document.getElementById("couponApply").onclick=applyCoupon;
 document.getElementById("couponInput").addEventListener("keydown",e=>{if(e.key==="Enter")applyCoupon();});
