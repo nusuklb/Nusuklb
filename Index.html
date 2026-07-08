@@ -578,8 +578,16 @@ footer a:hover{color:var(--gold2)}
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
           <div class="field" style="margin:0;flex:1;min-width:140px"><label id="isNameLbl"></label><input id="isName"></div>
           <div class="field" style="margin:0;flex:1;min-width:140px"><label id="isPhoneLbl"></label><input id="isPhone" class="num" dir="ltr"></div>
+          <div class="field" style="margin:0;width:160px"><label id="isDateLbl"></label><input id="isDate" type="date" class="num" dir="ltr"></div>
         </div>
         <button class="btn" id="isRegister" style="width:100%;background:#2c6b2f"></button>
+        <div id="lastSaleBox" style="display:none;background:var(--ivory);border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:12px">
+          <p style="font-weight:700;color:var(--green);margin-bottom:8px"><span id="lastSaleLblEl"></span> — <span class="num" id="lastSaleNum"></span></p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn ghost" id="receiptWABtn" style="padding:8px 14px;font-size:13.5px"></button>
+            <button class="btn ghost" id="receiptPrintBtn" style="padding:8px 14px;font-size:13.5px"></button>
+          </div>
+        </div>
       </div>
 
       <!-- المشترون -->
@@ -1022,7 +1030,9 @@ ar:{dir:"rtl",
   srcFilterLbl:"قناة البيع", srcAll:"كل القنوات", srcWeb:"🌐 الموقع", srcStore:"🏪 المحل", optionalMark:"(اختياري)", isDiscLbl:"حسم على البيع", discPct:"نسبة %", discAmt:"مبلغ $", storeDiscTitle:"حسومات المحل",
   ofStoreSales:"من مبيعات المحل", discHighWarn:"⚠ الحسم تجاوز 20%", beforeDisc:"قبل الحسم", rememberMe:"تذكرني على هذا الجهاز (30 يوماً)", posPinTitle:"شاشة الكاشير — بيع من المحل", posPinPrompt:"أدخل رمز الكاشير",
   posPinLbl:"رمز الكاشير PIN (4-8 أرقام)", posPinSaved:"حُفظ رمز الكاشير ✓", posPinShort:"الرمز يجب أن يكون 4-8 أرقام",
-  posPinMissing:"لم يُحدَّد رمز كاشير بعد — حدده من إعدادات الإدارة", posLinkNote:"شاشة الكاشير: أضف #pos إلى نهاية رابط الموقع وشاركه مع من يعمل على الكاشير — يسجل المبيعات فقط دون الوصول لأي شيء آخر", posSectionTitle:"رمز الكاشير", saveBtn:"حفظ", confirmPassLbl:"تأكيد كلمة المرور الجديدة", passMismatch:"كلمتا المرور غير متطابقتين", orderNum:"رقم الطلب", thanksTitle:"شكراً لطلبكم! 🌙", thanksBody:"تم إرسال طلبكم — سنؤكده معكم قريباً عبر واتساب.",
+  posPinMissing:"لم يُحدَّد رمز كاشير بعد — حدده من إعدادات الإدارة", posLinkNote:"شاشة الكاشير: أضف #pos إلى نهاية رابط الموقع وشاركه مع من يعمل على الكاشير — يسجل المبيعات فقط دون الوصول لأي شيء آخر", posSectionTitle:"رمز الكاشير", saleDateLbl:"تاريخ البيع", receiptWA:"📤 إرسال الفاتورة واتساب", receiptPrint:"🖨 طباعة الإيصال", receiptTitle:"فاتورة نُسُك",
+  lastSaleLbl:"آخر بيع مسجَّل", noPhoneForReceipt:"لا يوجد رقم زبون لهذا البيع — الطباعة متاحة", thanksReceipt:"شكراً لتسوقكم من نُسُك 🌙",
+  editDateTip:"تعديل التاريخ", webChannel:"🌐 الموقع", storeChannel:"🏪 المحل", saveBtn:"حفظ", confirmPassLbl:"تأكيد كلمة المرور الجديدة", passMismatch:"كلمتا المرور غير متطابقتين", orderNum:"رقم الطلب", thanksTitle:"شكراً لطلبكم! 🌙", thanksBody:"تم إرسال طلبكم — سنؤكده معكم قريباً عبر واتساب.",
   passTitle:"تغيير كلمة مرور الإدارة", curPassLbl:"كلمة المرور الحالية", newPassLbl:"كلمة المرور الجديدة", passChanged:"تم تغيير كلمة المرور ✓",
   shareStore:"📤 شارك المتجر", shareStoreMsg:"تسوقوا هدايا ودينيات مميزة من متجر نُسُك 🌙", waBlocked:"نُسخ الرابط ✓ — الصقه في متصفحك لفتح واتساب",
   notesLbl:"ملاحظات الطلب (اختياري)", confirmDeliver:"✓ تأكيد التسليم", delivered:"تم التسليم", pendingLbl:"قيد التنفيذ",
@@ -1101,7 +1111,9 @@ en:{dir:"ltr",
   srcFilterLbl:"Sales channel", srcAll:"All channels", srcWeb:"🌐 Website", srcStore:"🏪 Store", optionalMark:"(optional)", isDiscLbl:"Sale discount", discPct:"Percent %", discAmt:"Amount $", storeDiscTitle:"In-store discounts",
   ofStoreSales:"of store sales", discHighWarn:"⚠ Discount exceeds 20%", beforeDisc:"Before discount", rememberMe:"Remember me on this device (30 days)", posPinTitle:"Cashier screen — In-store sale", posPinPrompt:"Enter cashier PIN",
   posPinLbl:"Cashier PIN (4-8 digits)", posPinSaved:"Cashier PIN saved ✓", posPinShort:"PIN must be 4-8 digits",
-  posPinMissing:"No cashier PIN set yet — set it in admin settings", posLinkNote:"Cashier screen: add #pos to the site link — sales entry only, no access to anything else", posSectionTitle:"Cashier PIN", saveBtn:"Save", confirmPassLbl:"Confirm new password", passMismatch:"Passwords do not match", orderNum:"Order no.", thanksTitle:"Thank you for your order! 🌙", thanksBody:"Your order was sent — we will confirm it with you on WhatsApp shortly.",
+  posPinMissing:"No cashier PIN set yet — set it in admin settings", posLinkNote:"Cashier screen: add #pos to the site link — sales entry only, no access to anything else", posSectionTitle:"Cashier PIN", saleDateLbl:"Sale date", receiptWA:"📤 Send invoice via WhatsApp", receiptPrint:"🖨 Print receipt", receiptTitle:"Nusuk Invoice",
+  lastSaleLbl:"Last registered sale", noPhoneForReceipt:"No customer phone for this sale — printing available", thanksReceipt:"Thank you for shopping at Nusuk 🌙",
+  editDateTip:"Edit date", webChannel:"🌐 Website", storeChannel:"🏪 Store", saveBtn:"Save", confirmPassLbl:"Confirm new password", passMismatch:"Passwords do not match", orderNum:"Order no.", thanksTitle:"Thank you for your order! 🌙", thanksBody:"Your order was sent — we will confirm it with you on WhatsApp shortly.",
   passTitle:"Change admin password", curPassLbl:"Current password", newPassLbl:"New password", passChanged:"Password changed ✓",
   shareStore:"📤 Share the store", shareStoreMsg:"Shop unique gifts & religious items from Nusuk Store 🌙", waBlocked:"Link copied ✓ — paste it in your browser to open WhatsApp",
   notesLbl:"Order notes (optional)", confirmDeliver:"✓ Confirm delivery", delivered:"Delivered", pendingLbl:"Pending",
@@ -1180,7 +1192,9 @@ fa:{dir:"rtl",
   srcFilterLbl:"کانال فروش", srcAll:"همه کانال‌ها", srcWeb:"🌐 سایت", srcStore:"🏪 فروشگاه", optionalMark:"(اختیاری)", isDiscLbl:"تخفیف فروش", discPct:"درصد %", discAmt:"مبلغ $", storeDiscTitle:"تخفیف‌های حضوری",
   ofStoreSales:"از فروش حضوری", discHighWarn:"⚠ تخفیف از ۲۰٪ گذشت", beforeDisc:"قبل از تخفیف", rememberMe:"مرا به خاطر بسپار (۳۰ روز)", posPinTitle:"صفحه صندوق — فروش حضوری", posPinPrompt:"رمز صندوق را وارد کنید",
   posPinLbl:"رمز صندوق (۴-۸ رقم)", posPinSaved:"ذخیره شد ✓", posPinShort:"رمز باید ۴-۸ رقم باشد",
-  posPinMissing:"رمز صندوق تعیین نشده — از تنظیمات مدیریت تعیین کنید", posLinkNote:"صفحه صندوق: #pos را به لینک سایت اضافه کنید", posSectionTitle:"رمز صندوق", saveBtn:"ذخیره", confirmPassLbl:"تکرار رمز جدید", passMismatch:"رمزها یکسان نیستند", orderNum:"شماره سفارش", thanksTitle:"از سفارش شما متشکریم! 🌙", thanksBody:"سفارش ارسال شد — به‌زودی در واتساپ تأیید می‌کنیم.",
+  posPinMissing:"رمز صندوق تعیین نشده — از تنظیمات مدیریت تعیین کنید", posLinkNote:"صفحه صندوق: #pos را به لینک سایت اضافه کنید", posSectionTitle:"رمز صندوق", saleDateLbl:"تاریخ فروش", receiptWA:"📤 ارسال فاکتور واتساپ", receiptPrint:"🖨 چاپ رسید", receiptTitle:"فاکتور نُسُک",
+  lastSaleLbl:"آخرین فروش", noPhoneForReceipt:"شماره مشتری ثبت نشده — چاپ ممکن است", thanksReceipt:"از خرید شما متشکریم 🌙",
+  editDateTip:"ویرایش تاریخ", webChannel:"🌐 سایت", storeChannel:"🏪 فروشگاه", saveBtn:"ذخیره", confirmPassLbl:"تکرار رمز جدید", passMismatch:"رمزها یکسان نیستند", orderNum:"شماره سفارش", thanksTitle:"از سفارش شما متشکریم! 🌙", thanksBody:"سفارش ارسال شد — به‌زودی در واتساپ تأیید می‌کنیم.",
   passTitle:"تغییر رمز مدیر", curPassLbl:"رمز فعلی", newPassLbl:"رمز جدید", passChanged:"رمز تغییر کرد ✓",
   shareStore:"📤 اشتراک فروشگاه", shareStoreMsg:"از فروشگاه نُسُک هدایای مذهبی ویژه بخرید 🌙", waBlocked:"لینک کپی شد ✓ — در مرورگر بچسبانید",
   notesLbl:"یادداشت سفارش (اختیاری)", confirmDeliver:"✓ تأیید تحویل", delivered:"تحویل شد", pendingLbl:"در انتظار",
@@ -1432,7 +1446,8 @@ function applyLang(){
   set("anCouponTitle",L.couponPerfTitle); set("anStaleTitle",L.staleTitle); set("anDormantTitle",L.dormantTitle);
   set("dailyReport",L.dailyReportBtn);
   set("tInstoreLbl",L.tileInstore); set("admInstoreTitle",L.instoreTitle); set("isRegister",L.registerSale);
-  set("isNameLbl",L.name+" "+L.optionalMark); set("isPhoneLbl",L.phone+" "+L.optionalMark);
+  set("isNameLbl",L.name+" "+L.optionalMark); set("isPhoneLbl",L.phone+" "+L.optionalMark); set("isDateLbl",L.saleDateLbl);
+  set("lastSaleLblEl",L.lastSaleLbl); set("receiptWABtn",L.receiptWA); set("receiptPrintBtn",L.receiptPrint);
   set("anSrcLbl",L.srcFilterLbl); set("isDiscLblEl",L.isDiscLbl);
   document.getElementById("isSearch").placeholder=L.searchProductsPh; set("anCatLbl",L.catFilterLbl); set("anBack",L.backAdmin);
   set("anPdf",L.exportPdf); set("anXlsx",L.exportExcel); set("buyersXlsx",L.exportBuyersX); set("buyersPdf",L.exportBuyersP);
@@ -2006,6 +2021,7 @@ function doAdminUnlock(){
     const pnl=document.getElementById("ap-instore");
     pnl.classList.add("open");
     const back=pnl.querySelector(".apback"); if(back) back.style.display="none";
+    document.getElementById("isDate").value=new Date().toISOString().slice(0,10);
     renderInstore();
     return;
   }
@@ -2432,13 +2448,58 @@ async function registerInstoreSale(){
   const total=gross-disc;
   const name=document.getElementById("isName").value.trim();
   const phone=normPhone(document.getElementById("isPhone").value);
+  // التاريخ: اليوم = اللحظة الحالية، وتاريخ سابق = ظهر ذلك اليوم
+  const dv=document.getElementById("isDate").value;
+  const todayStr=new Date().toISOString().slice(0,10);
+  const saleD=(dv&&dv!==todayStr)?new Date(dv+"T12:00:00").getTime():Date.now();
   const orders=(await sGet("orders",true))||[];
-  orders.push({num, d:Date.now(), n:name||"—", p:phone||"—", a:"—", notes:"", total, disc, coupon:null, items, s:true, src:"store"});
+  const saleObj={num, d:saleD, n:name||"—", p:phone||"—", a:"—", notes:"", total, disc, coupon:null, items, s:true, src:"store"};
+  orders.push(saleObj);
+  lastSale=saleObj;
   await sSet("orders",orders.slice(-300),true);
   isCart=[]; isDiscPct=0; isDiscAmt=0;
   ["isSearch","isName","isPhone","isDiscPct","isDiscAmt"].forEach(id=>document.getElementById(id).value="");
-  renderInstore(); renderQuickStats(); renderTileBadges(); renderOrders();
+  document.getElementById("isDate").value=new Date().toISOString().slice(0,10);
+  renderInstore();
+  if(!posMode){ renderQuickStats(); renderTileBadges(); renderOrders(); }
+  document.getElementById("lastSaleBox").style.display="block";
+  document.getElementById("lastSaleNum").textContent="#"+num;
   toast(L.saleDone);
+}
+
+/* ---------- فاتورة آخر بيع ---------- */
+let lastSale=null;
+function receiptText(o){
+  const L=t();
+  let msg=`${L.receiptTitle} — #${o.num}\n${new Date(o.d).toLocaleDateString("en-GB")}\n`;
+  msg+="—————————————\n";
+  o.items.forEach(i=>msg+=`${i.n} ×${i.q} — ${fmt(i.u*i.q)}\n`);
+  msg+="—————————————\n";
+  if(o.disc>0) msg+=`${L.discount}: -${fmt(o.disc)}\n`;
+  msg+=`${L.total}: ${fmt(o.total)}\n\n${L.thanksReceipt}`;
+  return msg;
+}
+function sendReceiptWA(){
+  const L=t();
+  if(!lastSale) return;
+  if(!lastSale.p || lastSale.p==="—"){toast(L.noPhoneForReceipt);return;}
+  openExternal(`https://wa.me/${lastSale.p.replace(/[^0-9]/g,"")}?text=${encodeURIComponent(receiptText(lastSale))}`);
+}
+function printReceipt(){
+  if(!lastSale) return;
+  const L=t();
+  const box=document.getElementById("printReport");
+  box.innerHTML=`<div style="max-width:300px;margin:0 auto;text-align:center;font-family:'Segoe UI',Tahoma,sans-serif">
+    <h2 style="margin-bottom:2px">نُسُك</h2>
+    <p style="font-size:12px;margin-bottom:10px">${L.receiptTitle} — #${lastSale.num}<br>${new Date(lastSale.d).toLocaleString("en-GB")}</p>
+    <hr>
+    <table style="width:100%;font-size:13px;text-align:start">${lastSale.items.map(i=>`<tr><td>${i.n} ×${i.q}</td><td style="text-align:end">${fmt(i.u*i.q)}</td></tr>`).join("")}</table>
+    <hr>
+    ${lastSale.disc>0?`<p style="font-size:13px">${L.discount}: -${fmt(lastSale.disc)}</p>`:""}
+    <p style="font-weight:700;font-size:15px">${L.total}: ${fmt(lastSale.total)}</p>
+    <p style="font-size:12px;margin-top:10px">${L.thanksReceipt}</p>
+  </div>`;
+  window.print();
 }
 
 /* ---------- الإحصاءات السريعة وشارة الطلبات ---------- */
@@ -2483,6 +2544,7 @@ document.querySelectorAll("#adminHome .tile").forEach(tl=>{
   tl.onclick=()=>{
     const target=tl.dataset.ap;
     if(target==="analytics"){go("analytics");renderAnalytics();return;}
+    if(target==="ap-instore") document.getElementById("isDate").value=new Date().toISOString().slice(0,10);
     showAP(target);
   };
 });
@@ -2637,7 +2699,7 @@ async function renderOrders(){
     const date=new Date(o.d).toLocaleString("en-GB",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"});
     const status=o.c?`<span style="color:var(--red)">✗ ${L.cancelledLbl}</span>`:(o.s?`<span style="color:#2c6b2f">✓ ${L.delivered}</span>`:`<span style="color:#a5802a">⏳ ${L.pendingLbl}</span>`);
     const srcTag=o.src==="store"?` <span class="src-tag">${L.storeTag}</span>`:"";
-    d.innerHTML=`<div class="oh"><span>${o.num?`<span class="num">#${o.num}</span> — `:""}${o.n}${o.p&&o.p!=="—"?` — <span class="num">${o.p}</span>`:""}</span><span class="num">${date}</span></div>
+    d.innerHTML=`<div class="oh"><span>${o.num?`<span class="num">#${o.num}</span> — `:""}${o.n}${o.p&&o.p!=="—"?` — <span class="num">${o.p}</span>`:""}</span><span style="display:flex;gap:6px;align-items:center"><span class="num">${date}</span><input type="date" class="od-date num" value="${new Date(o.d).toISOString().slice(0,10)}" style="border:1px solid var(--line);border-radius:6px;padding:2px 4px;font-size:11.5px;width:118px" title=""></span></div>
       <div>${o.items.map(i=>`${i.n} ×${i.q}`).join("، ")}</div>
       <div style="margin-top:4px;color:var(--green);font-weight:700">${L.orderTotal}: <span class="num">${fmt(o.total)}</span>${o.coupon?` <span class="num" style="font-weight:400">(${o.coupon})</span>`:""}${o.disc?` <span class="num" style="font-weight:400;font-size:12px;color:#a5802a">(-${fmt(o.disc)})</span>`:""} — ${status}${srcTag}</div>
       <div class="muted">${o.a}${o.notes?` — 📝 ${o.notes}`:""}</div>
@@ -2657,6 +2719,15 @@ async function renderOrders(){
     d.querySelector(".oc-cancel").onclick=()=>upd(x=>x.c=!x.c);
     const wb=d.querySelector(".ow-btn");
     if(wb) wb.onclick=()=>openExternal("https://wa.me/"+String(o.p).replace(/[^0-9]/g,""));
+    const de=d.querySelector(".od-date");
+    de.title=L.editDateTip;
+    de.onchange=()=>{
+      const nd=de.value; if(!nd) return;
+      // نحافظ على ساعة الطلب الأصلية ونغير اليوم فقط
+      const orig=new Date(o.d);
+      const nt=new Date(nd+"T"+String(orig.getHours()).padStart(2,"0")+":"+String(orig.getMinutes()).padStart(2,"0")+":00").getTime();
+      upd(x=>x.d=nt);
+    };
     box.appendChild(d);
   });
 }
@@ -2899,11 +2970,14 @@ async function sendDailyReport(){
   const dayStart=new Date(); dayStart.setHours(0,0,0,0);
   const today=orders.filter(o=>o.d>=dayStart.getTime()&&!o.c);
   const rev=today.reduce((a,o)=>a+(o.total||0),0);
+  const web=today.filter(o=>o.src!=="store"), store=today.filter(o=>o.src==="store");
+  const webRev=web.reduce((a,o)=>a+(o.total||0),0), storeRev=store.reduce((a,o)=>a+(o.total||0),0);
   const counts={};
   today.forEach(o=>o.items.forEach(i=>counts[i.n]=(counts[i.n]||0)+i.q));
   const top=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,3);
   let msg=`${L.reportFor} ${new Date().toLocaleDateString("en-GB")}\n`;
   msg+=`${L.ordersCount}: ${today.length}\n${L.revenue}: ${fmt(rev)}\n`;
+  msg+=`${L.webChannel}: ${web.length} — ${fmt(webRev)}\n${L.storeChannel}: ${store.length} — ${fmt(storeRev)}\n`;
   if(top.length){ msg+=`${L.topProducts}:\n`; top.forEach(([n,q])=>msg+=`• ${n} ×${q}\n`); }
   openExternal(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`);
 }
@@ -3156,6 +3230,8 @@ document.getElementById("abSave").onclick=saveAbout;
 document.getElementById("demoFillBtn").onclick=()=>fillDemoData(false);
 document.getElementById("passSave").onclick=changeAdminPass;
 document.getElementById("posPinSave").onclick=savePosPin;
+document.getElementById("posPin").addEventListener("input",e=>{const v=e.target.value.replace(/\D/g,""); if(e.target.value!==v)e.target.value=v;});
+if(posMode) document.getElementById("adminPass").addEventListener("input",e=>{const v=e.target.value.replace(/\D/g,""); if(e.target.value!==v)e.target.value=v;});
 document.getElementById("adminLogout").onclick=adminLogout;
 document.getElementById("dailyReport").onclick=sendDailyReport;
 document.getElementById("isSearch").addEventListener("input",renderInstore);
@@ -3169,6 +3245,8 @@ document.querySelectorAll(".is-disc .dq").forEach(b=>b.onclick=()=>{
   renderInstore();
 });
 document.getElementById("isRegister").onclick=registerInstoreSale;
+document.getElementById("receiptWABtn").onclick=sendReceiptWA;
+document.getElementById("receiptPrintBtn").onclick=printReceipt;
 document.getElementById("oSearch").addEventListener("input",()=>renderOrders());
 document.getElementById("oStatus").addEventListener("change",()=>renderOrders());
 document.getElementById("pSearch").addEventListener("input",()=>renderAdminList());
