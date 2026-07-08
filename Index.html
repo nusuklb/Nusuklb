@@ -1390,11 +1390,22 @@ async function sSet(key, val, shared=false){
       case "cats":     return await sbReplaceAll("categories",(val||[]).map((c,i)=>({...M.catRow(c),sort:i})),"id");
       case "faqs":     return await sbReplaceAll("faqs",(val||[]).map(M.faqRow),"id");
       case "slides":   return await sbReplaceAll("slides",(val||[]).map(M.slideRow),"id");
-      case "orders":   return await sbReplaceAll("orders",(val||[]).map(o=>({id:o._id||undefined,...M.orderRow(o)})).map(r=>{if(r.id===undefined)delete r.id;return r;}),"id");
+      case "orders": {
+        const arr=val||[];
+        const withId=arr.filter(o=>o._id), fresh=arr.filter(o=>!o._id);
+        await sbReplaceAll("orders", withId.map(o=>({id:o._id,...M.orderRow(o)})), "id");
+        if(fresh.length) await sbFetch("orders",{method:"POST",body:fresh.map(M.orderRow),prefer:"return=minimal"});
+        return;
+      }
       case "coupons":  return await sbReplaceAll("coupons",Object.entries(val||{}).map(([code,percent])=>({code,percent})),"code");
       case "users":    return await sbReplaceAll("buyers",Object.entries(val||{}).map(([phone,u])=>({phone,name:u.name,pass_hash:u.h||"",created_at:new Date(u.d||Date.now()).toISOString(),demo:!!u.demo})),"phone");
-      case "reviews":  { const rows=[]; Object.entries(val||{}).forEach(([pid,list])=>list.forEach(r=>rows.push({id:r._id||undefined,product_id:+pid,name:r.n,rating:r.r,body:r.t,d:new Date(r.d||Date.now()).toISOString()})));
-                         return await sbReplaceAll("reviews",rows.map(r=>{if(r.id===undefined)delete r.id;return r;}),"id"); }
+      case "reviews": {
+        const rows=[]; Object.entries(val||{}).forEach(([pid,list])=>list.forEach(r=>rows.push({id:r._id,product_id:+pid,name:r.n,rating:r.r,body:r.t,d:new Date(r.d||Date.now()).toISOString()})));
+        const withId=rows.filter(r=>r.id), fresh=rows.filter(r=>!r.id).map(r=>{const c={...r};delete c.id;return c;});
+        await sbReplaceAll("reviews", withId, "id");
+        if(fresh.length) await sbFetch("reviews",{method:"POST",body:fresh,prefer:"return=minimal"});
+        return;
+      }
       default:         return await sbFetch("settings?on_conflict=key",{method:"POST",body:[{key,value:val}],prefer:"resolution=merge-duplicates,return=minimal"});
     }
   }catch(e){ console.error("sSet",key,e); }
