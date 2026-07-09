@@ -388,6 +388,8 @@ html[dir=rtl] .lb-nav svg{transform:scaleX(-1)}
 #prodDetail > h3:first-of-type{margin:8px 0 2px;font-size:19px}
 #prodDetail .gal{margin-bottom:4px}
 
+.blow{background:#a5802a;color:#fff;font-size:11px;padding:3px 9px;border-radius:10px;font-weight:700}
+
 /* toast */
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--green);color:var(--gold2);padding:12px 24px;border-radius:30px;font-size:14px;z-index:200;opacity:0;transition:.3s;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
 #toast.show{opacity:1}
@@ -668,6 +670,7 @@ html[dir=rtl] .lb-nav svg{transform:scaleX(-1)}
         <div class="field"><label id="lblMaterial"></label><input id="pMaterial"></div>
         <div class="field"><label id="lblSize"></label><input id="pSize"></div>
         <div class="field"><label id="lblVariants"></label><input id="pVariants" placeholder="أحمر, أخضر, أسود"></div>
+        <div class="field" id="qtyField" style="display:none"><label id="lblQty"></label><input id="pQty" type="number" min="0" class="num" dir="ltr"></div>
         <div class="field"><label id="lblImgs"></label><textarea id="pImgs" rows="2" dir="ltr" placeholder="https://..."></textarea>
           <label class="upload-btn"><input type="file" id="pImgsFile" accept="image/*" multiple hidden><span id="uploadExtraLbl"></span> 📤</label>
           <div class="imgprev" id="extraPrev"></div>
@@ -761,6 +764,11 @@ html[dir=rtl] .lb-nav svg{transform:scaleX(-1)}
         <div class="field"><label id="lblNewPass"></label><input type="password" id="newPass" class="num"></div>
         <div class="field"><label id="lblNewPass2"></label><input type="password" id="newPass2" class="num"></div>
         <button class="btn" id="passSave" style="padding:9px 20px;font-size:14px"></button>
+
+        <h3 id="admStockTitle" style="color:var(--green);margin:24px 0 10px"></h3>
+        <label class="chk" style="margin-bottom:10px"><input type="checkbox" id="stockOn"> <span id="stockOnLblEl"></span></label>
+        <div class="field" style="max-width:280px"><label id="lblStockTh"></label><input id="stockTh" type="number" min="1" class="num" dir="ltr"></div>
+        <button class="btn" id="stockSave" style="padding:9px 20px;font-size:14px"></button>
 
         <h3 id="admPosTitle" style="color:var(--green);margin:24px 0 10px"></h3>
         <p class="muted" id="posNote" style="font-size:13px;margin-bottom:8px"></p>
@@ -1076,7 +1084,8 @@ ar:{dir:"rtl",
   posPinLbl:"رمز الكاشير PIN (4-8 أرقام)", posPinSaved:"حُفظ رمز الكاشير ✓", posPinShort:"الرمز يجب أن يكون 4-8 أرقام",
   posPinMissing:"لم يُحدَّد رمز كاشير بعد — حدده من إعدادات الإدارة", posLinkNote:"شاشة الكاشير: أضف #pos إلى نهاية رابط الموقع وشاركه مع من يعمل على الكاشير — يسجل المبيعات فقط دون الوصول لأي شيء آخر", posSectionTitle:"رمز الكاشير", saleDateLbl:"تاريخ البيع", receiptWA:"📤 إرسال الفاتورة واتساب", receiptPrint:"🖨 طباعة الإيصال", receiptTitle:"فاتورة نُسُك",
   lastSaleLbl:"آخر بيع مسجَّل", noPhoneForReceipt:"لا يوجد رقم زبون لهذا البيع — الطباعة متاحة", thanksReceipt:"شكراً لتسوقكم من نُسُك 🌙",
-  editDateTip:"تعديل التاريخ", webChannel:"🌐 الموقع", storeChannel:"🏪 المحل", exitPos:"⏻ خروج من الكاشير", focusLbl:"اسحب الصورة لتحديد الجزء الظاهر على البطاقة", focusReset:"إعادة للوسط", focusX:"يميناً ← يساراً", focusY:"أعلى ↕ أسفل", variantsLbl:"الألوان / الخيارات المتوفرة (افصل بينها بفاصلة)", pickVariant:"اختر اللون أو الخيار أولاً", variantTitle:"الخيارات المتوفرة", saveBtn:"حفظ", confirmPassLbl:"تأكيد كلمة المرور الجديدة", passMismatch:"كلمتا المرور غير متطابقتين", orderNum:"رقم الطلب", thanksTitle:"شكراً لطلبكم! 🌙", thanksBody:"تم إرسال طلبكم — سنؤكده معكم قريباً عبر واتساب.",
+  editDateTip:"تعديل التاريخ", webChannel:"🌐 الموقع", storeChannel:"🏪 المحل", exitPos:"⏻ خروج من الكاشير", focusLbl:"اسحب الصورة لتحديد الجزء الظاهر على البطاقة", focusReset:"إعادة للوسط", focusX:"يميناً ← يساراً", focusY:"أعلى ↕ أسفل", variantsLbl:"الألوان / الخيارات المتوفرة (افصل بينها بفاصلة)", pickVariant:"اختر اللون أو الخيار أولاً", variantTitle:"الخيارات المتوفرة", stockTitle:"المخزون (الكمية المتوفرة)", stockOnLbl:"تفعيل عرض الكمية المتوفرة", stockThLbl:"حد التنبيه (بقي X فقط عندما تصل الكمية إليه)",
+  qtyFieldLbl:"الكمية المتوفرة (اتركه فارغاً لعدم التتبع)", lowStockBadge:"⚡ بقي {n} فقط", qtyAdminLbl:"الكمية", saveBtn:"حفظ", confirmPassLbl:"تأكيد كلمة المرور الجديدة", passMismatch:"كلمتا المرور غير متطابقتين", orderNum:"رقم الطلب", thanksTitle:"شكراً لطلبكم! 🌙", thanksBody:"تم إرسال طلبكم — سنؤكده معكم قريباً عبر واتساب.",
   passTitle:"تغيير كلمة مرور الإدارة", curPassLbl:"كلمة المرور الحالية", newPassLbl:"كلمة المرور الجديدة", passChanged:"تم تغيير كلمة المرور ✓",
   shareStore:"📤 شارك المتجر", shareStoreMsg:"تسوقوا هدايا ودينيات مميزة من متجر نُسُك 🌙", waBlocked:"نُسخ الرابط ✓ — الصقه في متصفحك لفتح واتساب",
   notesLbl:"ملاحظات الطلب (اختياري)", confirmDeliver:"✓ تأكيد التسليم", delivered:"تم التسليم", pendingLbl:"قيد التنفيذ",
@@ -1157,7 +1166,8 @@ en:{dir:"ltr",
   posPinLbl:"Cashier PIN (4-8 digits)", posPinSaved:"Cashier PIN saved ✓", posPinShort:"PIN must be 4-8 digits",
   posPinMissing:"No cashier PIN set yet — set it in admin settings", posLinkNote:"Cashier screen: add #pos to the site link — sales entry only, no access to anything else", posSectionTitle:"Cashier PIN", saleDateLbl:"Sale date", receiptWA:"📤 Send invoice via WhatsApp", receiptPrint:"🖨 Print receipt", receiptTitle:"Nusuk Invoice",
   lastSaleLbl:"Last registered sale", noPhoneForReceipt:"No customer phone for this sale — printing available", thanksReceipt:"Thank you for shopping at Nusuk 🌙",
-  editDateTip:"Edit date", webChannel:"🌐 Website", storeChannel:"🏪 Store", exitPos:"⏻ Exit cashier", focusLbl:"Drag the image to set the visible crop", focusReset:"Reset to center", focusX:"Left ↔ Right", focusY:"Up ↕ Down", variantsLbl:"Available colors / options (comma separated)", pickVariant:"Please pick a color/option first", variantTitle:"Available options", saveBtn:"Save", confirmPassLbl:"Confirm new password", passMismatch:"Passwords do not match", orderNum:"Order no.", thanksTitle:"Thank you for your order! 🌙", thanksBody:"Your order was sent — we will confirm it with you on WhatsApp shortly.",
+  editDateTip:"Edit date", webChannel:"🌐 Website", storeChannel:"🏪 Store", exitPos:"⏻ Exit cashier", focusLbl:"Drag the image to set the visible crop", focusReset:"Reset to center", focusX:"Left ↔ Right", focusY:"Up ↕ Down", variantsLbl:"Available colors / options (comma separated)", pickVariant:"Please pick a color/option first", variantTitle:"Available options", stockTitle:"Inventory (available quantity)", stockOnLbl:"Enable stock display", stockThLbl:"Low-stock threshold",
+  qtyFieldLbl:"Available quantity (leave empty to not track)", lowStockBadge:"⚡ Only {n} left", qtyAdminLbl:"Qty", saveBtn:"Save", confirmPassLbl:"Confirm new password", passMismatch:"Passwords do not match", orderNum:"Order no.", thanksTitle:"Thank you for your order! 🌙", thanksBody:"Your order was sent — we will confirm it with you on WhatsApp shortly.",
   passTitle:"Change admin password", curPassLbl:"Current password", newPassLbl:"New password", passChanged:"Password changed ✓",
   shareStore:"📤 Share the store", shareStoreMsg:"Shop unique gifts & religious items from Nusuk Store 🌙", waBlocked:"Link copied ✓ — paste it in your browser to open WhatsApp",
   notesLbl:"Order notes (optional)", confirmDeliver:"✓ Confirm delivery", delivered:"Delivered", pendingLbl:"Pending",
@@ -1238,7 +1248,8 @@ fa:{dir:"rtl",
   posPinLbl:"رمز صندوق (۴-۸ رقم)", posPinSaved:"ذخیره شد ✓", posPinShort:"رمز باید ۴-۸ رقم باشد",
   posPinMissing:"رمز صندوق تعیین نشده — از تنظیمات مدیریت تعیین کنید", posLinkNote:"صفحه صندوق: #pos را به لینک سایت اضافه کنید", posSectionTitle:"رمز صندوق", saleDateLbl:"تاریخ فروش", receiptWA:"📤 ارسال فاکتور واتساپ", receiptPrint:"🖨 چاپ رسید", receiptTitle:"فاکتور نُسُک",
   lastSaleLbl:"آخرین فروش", noPhoneForReceipt:"شماره مشتری ثبت نشده — چاپ ممکن است", thanksReceipt:"از خرید شما متشکریم 🌙",
-  editDateTip:"ویرایش تاریخ", webChannel:"🌐 سایت", storeChannel:"🏪 فروشگاه", exitPos:"⏻ خروج از صندوق", focusLbl:"تصویر را بکشید تا بخش نمایان را تعیین کنید", focusReset:"بازنشانی", focusX:"چپ ↔ راست", focusY:"بالا ↕ پایین", variantsLbl:"رنگ‌ها / گزینه‌ها (با کاما جدا کنید)", pickVariant:"ابتدا رنگ را انتخاب کنید", variantTitle:"گزینه‌ها", saveBtn:"ذخیره", confirmPassLbl:"تکرار رمز جدید", passMismatch:"رمزها یکسان نیستند", orderNum:"شماره سفارش", thanksTitle:"از سفارش شما متشکریم! 🌙", thanksBody:"سفارش ارسال شد — به‌زودی در واتساپ تأیید می‌کنیم.",
+  editDateTip:"ویرایش تاریخ", webChannel:"🌐 سایت", storeChannel:"🏪 فروشگاه", exitPos:"⏻ خروج از صندوق", focusLbl:"تصویر را بکشید تا بخش نمایان را تعیین کنید", focusReset:"بازنشانی", focusX:"چپ ↔ راست", focusY:"بالا ↕ پایین", variantsLbl:"رنگ‌ها / گزینه‌ها (با کاما جدا کنید)", pickVariant:"ابتدا رنگ را انتخاب کنید", variantTitle:"گزینه‌ها", stockTitle:"موجودی", stockOnLbl:"نمایش موجودی", stockThLbl:"آستانه هشدار",
+  qtyFieldLbl:"تعداد موجود (برای عدم پیگیری خالی بگذارید)", lowStockBadge:"⚡ فقط {n} عدد مانده", qtyAdminLbl:"تعداد", saveBtn:"ذخیره", confirmPassLbl:"تکرار رمز جدید", passMismatch:"رمزها یکسان نیستند", orderNum:"شماره سفارش", thanksTitle:"از سفارش شما متشکریم! 🌙", thanksBody:"سفارش ارسال شد — به‌زودی در واتساپ تأیید می‌کنیم.",
   passTitle:"تغییر رمز مدیر", curPassLbl:"رمز فعلی", newPassLbl:"رمز جدید", passChanged:"رمز تغییر کرد ✓",
   shareStore:"📤 اشتراک فروشگاه", shareStoreMsg:"از فروشگاه نُسُک هدایای مذهبی ویژه بخرید 🌙", waBlocked:"لینک کپی شد ✓ — در مرورگر بچسبانید",
   notesLbl:"یادداشت سفارش (اختیاری)", confirmDeliver:"✓ تأیید تحویل", delivered:"تحویل شد", pendingLbl:"در انتظار",
@@ -1283,6 +1294,26 @@ let coupons = {};        // {CODE: percent}
 let reviewsAll = {};     // {productId:[reviews]}
 let bannerData = {txt:"",on:false};
 let shopSort = "default";
+let stockCfg = {on:false, th:5};   // إعدادات المخزون
+function isSold(p){ return p.soldout || (stockCfg.on && p.qty!=null && p.qty<=0); }
+function lowBadge(p){
+  if(!stockCfg.on || p.qty==null || isSold(p) || p.qty>stockCfg.th) return "";
+  return `<span class="blow num">${t().lowStockBadge.replace("{n}",p.qty)}</span>`;
+}
+async function adjustStock(items, dir){
+  // dir: -1 خصم عند التأكيد، +1 إرجاع عند التراجع/الإلغاء
+  if(!stockCfg.on || !dir) return;
+  let changed=false;
+  (items||[]).forEach(i=>{
+    const p=products.find(x=>x.id===i.id);
+    if(p && p.qty!=null){ p.qty=Math.max(0, p.qty + dir*i.q); changed=true; }
+  });
+  if(changed){
+    await sSet("products",products,true);
+    renderLatest(); renderSale(); renderBest();
+    if(document.getElementById("page-shop").classList.contains("active")) renderShop(currentCat);
+  }
+}
 let shopView = "list";   // list = عمودي، grid = شبكي
 let customSlides = [];   // شرائح الإدارة
 let slideImgData = "";
@@ -1313,7 +1344,7 @@ const CLOUD = /^https:\/\//.test(SB_URL) && SUPABASE_KEY.length > 25;  // يقب
 const HAS_CLAUDE = typeof window.storage !== "undefined" && window.storage && window.storage.get;
 const PERSONAL_KEYS = new Set(["favs","member","cart","lang","view"]); // بيانات الجهاز فقط
 const posMode = (location.hash === "#pos");   // وضع شاشة الكاشير
-const APP_VERSION = "v14-صور-أطول";        // يتغير مع كل نسخة
+const APP_VERSION = "v15-المخزون";        // يتغير مع كل نسخة
 
 async function sbFetch(path, opts={}){
   const r = await fetch(SB_URL + "/rest/v1/" + path, {
@@ -1352,12 +1383,14 @@ const M = {
     material:p.material||"", size:p.size||"", is_new:!!p.isNew, best:!!p.best, soldout:!!p.soldout,
     img_pos:(p.pos&&(p.pos.x!==50||p.pos.y!==50))?`${p.pos.x} ${p.pos.y}`:null,
     variants:p.variants||[],
+    qty:(p.qty==null?null:p.qty),
     descr_ar:(p.desc&&p.desc.ar)||"", descr_en:(p.desc&&p.desc.en)||"", descr_fa:(p.desc&&p.desc.fa)||""}),
   rowProduct: r => ({id:r.id, name:{ar:r.name_ar,en:r.name_en,fa:r.name_fa}, price:+r.price, oldPrice:+r.old_price||0,
     cat:r.cat, sub:r.sub||null, img:r.img||"", imgs:r.imgs||[], material:r.material||"", size:r.size||"",
     isNew:!!r.is_new, best:!!r.best, soldout:!!r.soldout,
     pos:(r.img_pos?{x:+r.img_pos.split(" ")[0],y:+r.img_pos.split(" ")[1]}:null),
     variants:r.variants||[],
+    qty:(r.qty==null?null:+r.qty),
     desc:{ar:r.descr_ar,en:r.descr_en,fa:r.descr_fa}}),
   catRow: c => ({id:c.id, icon:c.icon||"boxes", name_ar:c.name.ar, name_en:c.name.en||c.name.ar, name_fa:c.name.fa||c.name.ar}),
   rowCat: r => ({id:r.id, icon:r.icon, name:{ar:r.name_ar,en:r.name_en,fa:r.name_fa}}),
@@ -1456,6 +1489,7 @@ async function loadState(){
   coupons = (await sGet("coupons", true)) || {};
   reviewsAll = (await sGet("reviews", true)) || {};
   bannerData = (await sGet("banner", true)) || {txt:"",on:false};
+  stockCfg = (await sGet("stockCfg", true)) || {on:false, th:5};
   customSlides = (await sGet("slides", true)) || [];
   customCats = await sGet("cats", true);
   customFaqs = await sGet("faqs", true);
@@ -1550,6 +1584,7 @@ function applyLang(){
   set("admAboutTitle",L.aboutEditTitle); set("lblAbAr",L.tagAr); set("lblAbEn",L.tagEn); set("lblAbFa",L.tagFa); set("abSave",L.saveBtn);
   set("demoFillBtn",L.demoFill); set("demoClearBtn",L.demoClear);
   set("rememberLbl",L.rememberMe); set("rememberLbl2",L.rememberMe);
+  set("admStockTitle",L.stockTitle); set("stockOnLblEl",L.stockOnLbl); set("lblStockTh",L.stockThLbl); set("stockSave",L.saveBtn); set("lblQty",L.qtyFieldLbl);
   set("admPosTitle",L.posSectionTitle); set("posNote",L.posLinkNote); set("lblPosPin",L.posPinLbl); set("posPinSave",L.saveBtn);
   set("admPassTitle",L.passTitle); set("lblCurPass",L.curPassLbl); set("lblNewPass",L.newPassLbl); set("lblNewPass2",L.confirmPassLbl); set("passSave",L.saveBtn);
   set("thanksTitleEl",L.thanksTitle); set("thanksBodyEl",L.thanksBody); set("thanksNumLbl",L.orderNum);
@@ -1641,7 +1676,8 @@ function resetSlideTimer(){ clearInterval(slideTimer); slideTimer=setInterval(()
 ============================================================ */
 function productCard(p){
   const L=t();
-  const card=document.createElement("div"); card.className="card"+(p.soldout?" sold":"");
+  const sold=isSold(p);
+  const card=document.createElement("div"); card.className="card"+(sold?" sold":"");
   const isFav=favs.includes(p.id);
   const catLabel = catName(p.cat);
   const onSale=p.oldPrice && p.oldPrice>p.price;
@@ -1649,7 +1685,8 @@ function productCard(p){
   let badges="";
   if(onSale) badges+=`<span class="bsale num">-${salePct}%</span>`;
   if(p.isNew) badges+=`<span class="bnew">${L.newBadge}</span>`;
-  if(p.soldout) badges+=`<span class="bsold">${L.soldout}</span>`;
+  if(isSold(p)) badges+=`<span class="bsold">${L.soldout}</span>`;
+  badges+=lowBadge(p);
   card.innerHTML=`
     <div class="ph" ${p.img?`style="background:url('${p.img}') ${p.pos?`${p.pos.x}% ${p.pos.y}%`:"center"}/cover no-repeat, #e6e1d6"`:""}>
       ${badges?`<div class="pbadge">${badges}</div>`:""}
@@ -1660,10 +1697,10 @@ function productCard(p){
       <span class="ct">${catLabel}</span>
       ${cardStars(p.id)}
       <span class="pr num">${fmt(p.price)}${onSale?`<span class="oldpr num">${fmt(p.oldPrice)}</span>`:""}</span>
-      <button class="add" ${p.soldout?"disabled":""}>${p.soldout?L.soldout:L.detailsBtn}</button>
+      <button class="add" ${sold?"disabled":""}>${sold?L.soldout:L.detailsBtn}</button>
     </div>`;
   card.querySelector(".fav").onclick=e=>{e.stopPropagation();toggleFav(p.id);};
-  if(!p.soldout) card.querySelector(".add").onclick=e=>{
+  if(!sold) card.querySelector(".add").onclick=e=>{
     e.stopPropagation();
     if(p.variants&&p.variants.length){showProduct(p);return;}  // يجب اختيار اللون أولاً
     addToCart(p.id);
@@ -1752,7 +1789,8 @@ async function showProduct(p){
   const gal=imgs.length>1?`<div class="gal">${imgs.map((u,i)=>`<img src="${u}" class="${i===0?"on":""}" data-u="${u}">`).join("")}</div>`:"";
   let badges="";
   if(p.isNew) badges+=`<span class="bnew">${L.newBadge}</span> `;
-  if(p.soldout) badges+=`<span class="bsold">${L.soldout}</span>`;
+  if(isSold(p)) badges+=`<span class="bsold">${L.soldout}</span>`;
+  badges+=lowBadge(p);
   document.getElementById("prodDetail").innerHTML=`
     <div id="pdImg" style="height:clamp(340px,88vw,560px);border-radius:10px;background:${main?`url('${main}') center/cover`:"var(--green2)"};margin-bottom:6px;position:relative">
       ${badges?`<div class="pbadge">${badges}</div>`:""}
@@ -1765,8 +1803,8 @@ async function showProduct(p){
     <p class="num" style="color:var(--green);font-weight:700;font-size:20px;margin-bottom:8px">${fmt(p.price)}${(p.oldPrice&&p.oldPrice>p.price)?`<span class="oldpr num" style="font-size:15px">${fmt(p.oldPrice)}</span>`:""}</p>
     ${(p.variants&&p.variants.length)?`<p style="font-size:13.5px;font-weight:700;color:var(--green);margin-bottom:6px">${L.variantTitle}</p><div class="filters" id="pdVariants" style="margin-bottom:12px">${p.variants.map(v=>`<button class="chip" data-v="${v}">${v}</button>`).join("")}</div>`:""}
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
-      <button class="btn" id="pdAdd" ${p.soldout?"disabled":""}>${p.soldout?L.soldout:L.detailsBtn}</button>
-      ${p.soldout?`<button class="btn ghost" id="pdNotify">${L.notifyMe}</button>`:""}
+      <button class="btn" id="pdAdd" ${isSold(p)?"disabled":""}>${isSold(p)?L.soldout:L.detailsBtn}</button>
+      ${isSold(p)?`<button class="btn ghost" id="pdNotify">${L.notifyMe}</button>`:""}
       <button class="btn ghost" id="pdShare">${L.share}</button>
     </div>
     <div id="pdSimilar"></div>
@@ -1785,7 +1823,7 @@ async function showProduct(p){
     pdVariant=ch.dataset.v;
     vbox.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===ch));
   });
-  if(!p.soldout) document.getElementById("pdAdd").onclick=()=>{
+  if(!isSold(p)) document.getElementById("pdAdd").onclick=()=>{
     if(p.variants&&p.variants.length&&!pdVariant){toast(L.pickVariant);return;}
     addToCart(p.id,pdVariant);closeOverlay("prodOverlay");
   };
@@ -2139,6 +2177,9 @@ function doAdminUnlock(){
   renderQuickStats(); renderTileBadges();
   document.getElementById("bText").value=bannerData.txt||"";
   document.getElementById("bOn").checked=!!bannerData.on;
+  document.getElementById("stockOn").checked=!!stockCfg.on;
+  document.getElementById("stockTh").value=stockCfg.th;
+  document.getElementById("qtyField").style.display=stockCfg.on?"block":"none";
   if(aboutLine){document.getElementById("tagAr").value=aboutLine.ar||"";document.getElementById("tagEn").value=aboutLine.en||"";document.getElementById("tagFa").value=aboutLine.fa||"";}
   (async()=>{
     policyOverride=await sGet("policyText",true);
@@ -2225,7 +2266,9 @@ async function saveProduct(){
   const finalImg = mainImgData || img;
   const finalImgs = [...extraImgsData, ...urlImgs];
   const variants=document.getElementById("pVariants").value.split(/[،,]/).map(s=>s.trim()).filter(Boolean);
+  const qv=document.getElementById("pQty").value.trim();
   const obj={
+    qty: qv===""?null:Math.max(0,parseInt(qv)||0),
     variants,
     pos:{x:Math.round(imgPos.x), y:Math.round(imgPos.y)},
     id:editingId||Date.now(), cat, sub, price,
@@ -2276,6 +2319,7 @@ function editProduct(id){
   else { mainImgData=""; }
   imgPos = p.pos ? {x:p.pos.x, y:p.pos.y} : {x:50, y:50};
   document.getElementById("pVariants").value=(p.variants||[]).join("، ");
+  document.getElementById("pQty").value=(p.qty==null?"":p.qty);
   renderImgPreviews();
   document.getElementById("pNew").checked=!!p.isNew;
   document.getElementById("pBest").checked=!!p.best;
@@ -2309,7 +2353,7 @@ function renderAdminList(){
     const d=document.createElement("div"); d.className="admin-row";
     d.innerHTML=`
       <div class="th" ${p.img?`style="background-image:url('${p.img}')"`:""}></div>
-      <div class="inf">${p.name[lang]||p.name.ar}<br><span class="muted num">${fmt(p.price)}</span></div>
+      <div class="inf">${p.name[lang]||p.name.ar}<br><span class="muted num">${fmt(p.price)}</span>${(stockCfg.on&&p.qty!=null)?` <span class="num" style="font-size:12px;font-weight:700;color:${p.qty<=stockCfg.th?"var(--red)":"#2c6b2f"}"> — ${t().qtyAdminLbl}: ${p.qty}</span>`:""}</div>
       <div class="acts"><button class="a-edit">${L.edit}</button><button class="a-del">${L.del}</button></div>`;
     d.querySelector(".a-edit").onclick=()=>editProduct(p.id);
     d.querySelector(".a-del").onclick=()=>deleteProduct(p.id);
@@ -2544,8 +2588,10 @@ function renderInstore(){
   if(q){
     products.filter(p=>Object.values(p.name).join(" ").toLowerCase().includes(q)).slice(0,8).forEach(p=>{
       const d=document.createElement("div"); d.className="is-res";
-      d.innerHTML=`<span>${p.name.ar} — <span class="num">${fmt(p.price)}</span></span><button>+</button>`;
+      const qtyTag=(stockCfg.on&&p.qty!=null)?` <span class="num" style="color:${p.qty<=stockCfg.th?"var(--red)":"#77816f"};font-size:12px">(${p.qty})</span>`:"";
+      d.innerHTML=`<span>${p.name.ar}${qtyTag} — <span class="num">${fmt(p.price)}</span></span><button ${isSold(p)?"disabled style='opacity:.4'":""}>+</button>`;
       d.querySelector("button").onclick=()=>{
+        if(isSold(p)){toast(t().soldout);return;}
         const v=(p.variants&&p.variants.length)?p.variants[0]:null;
         const ex=isCart.find(c=>c.id===p.id&&(c.v||null)===v);
         if(ex) ex.qty++; else isCart.push({id:p.id,qty:1,u:p.price,v});
@@ -2614,6 +2660,7 @@ async function registerInstoreSale(){
   const saved=await addOrder(saleObj);
   if(!saved) return;   // فشل الحفظ: نبقي السلة كما هي والرسالة تشرح السبب
   lastSale=saleObj;
+  await adjustStock(items, -1);
   isCart=[]; isDiscPct=0; isDiscAmt=0;
   ["isSearch","isName","isPhone","isDiscPct","isDiscAmt"].forEach(id=>document.getElementById(id).value="");
   document.getElementById("isDate").value=new Date().toISOString().slice(0,10);
@@ -2765,6 +2812,13 @@ async function clearDemoData(){
   toast(L.demoCleared);
 }
 
+async function saveStockCfg(){
+  stockCfg={on:document.getElementById("stockOn").checked, th:Math.max(1,parseInt(document.getElementById("stockTh").value)||5)};
+  await sSet("stockCfg",stockCfg,true);
+  document.getElementById("qtyField").style.display=stockCfg.on?"block":"none";
+  renderLatest(); renderSale(); renderBest(); renderAdminList();
+  toast("✓");
+}
 async function savePosPin(){
   const L=t();
   const pin=document.getElementById("posPin").value.trim();
@@ -2778,7 +2832,7 @@ async function saveBanner(){
   await sSet("banner",bannerData,true);
   renderPromo(); toast("✓");
 }
-const BACKUP_KEYS=[["products",true],["orders",true],["users",true],["coupons",true],["reviews",true],["banner",true],["notify",true],["restock",true],["slides",true],["cats",true],["faqs",true],["aboutLine",true],["policyText",true],["aboutText",true],["orderSeq",true]];
+const BACKUP_KEYS=[["products",true],["orders",true],["users",true],["coupons",true],["reviews",true],["banner",true],["notify",true],["restock",true],["slides",true],["cats",true],["faqs",true],["aboutLine",true],["policyText",true],["aboutText",true],["orderSeq",true],["stockCfg",true]];
 async function downloadBackup(){
   const data={_nusuk:1,_date:new Date().toISOString()};
   for(const [k,sh] of BACKUP_KEYS) data[k]=await sGet(k,sh);
@@ -2868,7 +2922,13 @@ async function renderOrders(){
     const upd=async fn=>{
       const all=(await sGet("orders",true))||[];
       const target=all.find(x=>x.d===o.d);
-      if(target){fn(target);await sSet("orders",all,true);}
+      if(target){
+        const before=(target.s&&!target.c)?1:0;
+        fn(target);
+        const after=(target.s&&!target.c)?1:0;
+        await sSet("orders",all,true);
+        if(after!==before) await adjustStock(target.items, before-after);
+      }
       renderOrders();
     };
     const db=d.querySelector(".od-btn");
@@ -3434,6 +3494,7 @@ document.getElementById("abSave").onclick=saveAbout;
 document.getElementById("demoFillBtn").onclick=()=>fillDemoData(false);
 document.getElementById("passSave").onclick=changeAdminPass;
 document.getElementById("posPinSave").onclick=savePosPin;
+document.getElementById("stockSave").onclick=saveStockCfg;
 document.getElementById("posPin").addEventListener("input",e=>{const v=e.target.value.replace(/\D/g,""); if(e.target.value!==v)e.target.value=v;});
 if(posMode) document.getElementById("adminPass").addEventListener("input",e=>{const v=e.target.value.replace(/\D/g,""); if(e.target.value!==v)e.target.value=v;});
 document.getElementById("adminLogout").onclick=adminLogout;
